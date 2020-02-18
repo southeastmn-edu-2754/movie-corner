@@ -11,7 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace _2754_movie_corner_2020
+using Microsoft.EntityFrameworkCore;
+using MovieCorner.Data;
+
+namespace MovieCorner
 {
     public class Startup
     {
@@ -25,6 +28,8 @@ namespace _2754_movie_corner_2020
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MoviesContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MoviesConnectionString"))); 
             services.AddControllers();
         }
 
