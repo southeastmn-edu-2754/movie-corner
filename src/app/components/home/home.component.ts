@@ -7,7 +7,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
-  title: string = "COMC2749 Angular Exercises";
+  title: string = "COMC2754 Movie Corner";
 
   constructor() { }
 
