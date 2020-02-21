@@ -24,6 +24,7 @@ namespace MovieCorner.Data
         public virtual DbSet<TitleGenre> TitleGenre { get; set; }
         public virtual DbSet<TitlePrincipals> TitlePrincipals { get; set; }
         public virtual DbSet<TitleRatings> TitleRatings { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Watchlist> Watchlist { get; set; }
         public virtual DbSet<WatchlistTitles> WatchlistTitles { get; set; }
 
@@ -371,6 +372,23 @@ namespace MovieCorner.Data
                     .IsFixedLength();
             });
 
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("user", "cms");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.Property(e => e.FullName)
+                    .IsRequired()
+                    .HasColumnName("fullName")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasColumnName("userName")
+                    .HasMaxLength(20);
+            });
+
             modelBuilder.Entity<Watchlist>(entity =>
             {
                 entity.ToTable("watchlist", "cms");
@@ -407,7 +425,15 @@ namespace MovieCorner.Data
                     .HasColumnName("created")
                     .HasColumnType("smalldatetime");
 
+                entity.Property(e => e.OwnerId).HasColumnName("ownerId");
+
                 entity.Property(e => e.SequenceNum).HasColumnName("sequenceNum");
+
+                entity.HasOne(d => d.Owner)
+                    .WithMany(p => p.WatchlistTitles)
+                    .HasForeignKey(d => d.OwnerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_watchlist_titles_user");
 
                 entity.HasOne(d => d.TconstNavigation)
                     .WithMany(p => p.WatchlistTitles)
