@@ -8,52 +8,52 @@ using Microsoft.EntityFrameworkCore;
 using MovieCorner.Data;
 using MovieCorner.Models;
 
-namespace MovieCorner.Controllers
+namespace MovieCorner.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class NameBasicsController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public UserController(MoviesContext context)
+        public NameBasicsController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/NameBasics
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<NameBasics>>> GetNameBasics()
         {
-            return await _context.User.ToListAsync();
+            return await _context.NameBasics.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/NameBasics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<NameBasics>> GetNameBasics(string id)
         {
-            var user = await _context.User.FindAsync(id);
+            var nameBasics = await _context.NameBasics.FindAsync(id);
 
-            if (user == null)
+            if (nameBasics == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return nameBasics;
         }
 
-        // PUT: api/User/5
+        // PUT: api/NameBasics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutNameBasics(string id, NameBasics nameBasics)
         {
-            if (id != user.UserId)
+            if (id != nameBasics.Nconst)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(nameBasics).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace MovieCorner.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!NameBasicsExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace MovieCorner.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/NameBasics
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<NameBasics>> PostNameBasics(NameBasics nameBasics)
         {
-            _context.User.Add(user);
+            _context.NameBasics.Add(nameBasics);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (NameBasicsExists(nameBasics.Nconst))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace MovieCorner.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetNameBasics", new { id = nameBasics.Nconst }, nameBasics);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/NameBasics/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<NameBasics>> DeleteNameBasics(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var nameBasics = await _context.NameBasics.FindAsync(id);
+            if (nameBasics == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.NameBasics.Remove(nameBasics);
             await _context.SaveChangesAsync();
 
-            return user;
+            return nameBasics;
         }
 
-        private bool UserExists(int id)
+        private bool NameBasicsExists(string id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.NameBasics.Any(e => e.Nconst == id);
         }
     }
 }

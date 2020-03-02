@@ -12,48 +12,48 @@ namespace MovieCorner.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class TitleGenreController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public UserController(MoviesContext context)
+        public TitleGenreController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/TitleGenre
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<TitleGenre>>> GetTitleGenre()
         {
-            return await _context.User.ToListAsync();
+            return await _context.TitleGenre.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/TitleGenre/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<TitleGenre>> GetTitleGenre(string id)
         {
-            var user = await _context.User.FindAsync(id);
+            var titleGenre = await _context.TitleGenre.FindAsync(id);
 
-            if (user == null)
+            if (titleGenre == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return titleGenre;
         }
 
-        // PUT: api/User/5
+        // PUT: api/TitleGenre/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutTitleGenre(string id, TitleGenre titleGenre)
         {
-            if (id != user.UserId)
+            if (id != titleGenre.Genre)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(titleGenre).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace MovieCorner.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!TitleGenreExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace MovieCorner.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/TitleGenre
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<TitleGenre>> PostTitleGenre(TitleGenre titleGenre)
         {
-            _context.User.Add(user);
+            _context.TitleGenre.Add(titleGenre);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (TitleGenreExists(titleGenre.Genre))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace MovieCorner.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetTitleGenre", new { id = titleGenre.Genre }, titleGenre);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/TitleGenre/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<TitleGenre>> DeleteTitleGenre(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var titleGenre = await _context.TitleGenre.FindAsync(id);
+            if (titleGenre == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.TitleGenre.Remove(titleGenre);
             await _context.SaveChangesAsync();
 
-            return user;
+            return titleGenre;
         }
 
-        private bool UserExists(int id)
+        private bool TitleGenreExists(string id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.TitleGenre.Any(e => e.Genre == id);
         }
     }
 }

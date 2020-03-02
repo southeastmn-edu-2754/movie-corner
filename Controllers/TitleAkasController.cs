@@ -12,48 +12,48 @@ namespace MovieCorner.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class TitleAkasController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public UserController(MoviesContext context)
+        public TitleAkasController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/TitleAkas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<TitleAkas>>> GetTitleAkas()
         {
-            return await _context.User.ToListAsync();
+            return await _context.TitleAkas.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/TitleAkas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<TitleAkas>> GetTitleAkas(string id)
         {
-            var user = await _context.User.FindAsync(id);
+            var titleAkas = await _context.TitleAkas.FindAsync(id);
 
-            if (user == null)
+            if (titleAkas == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return titleAkas;
         }
 
-        // PUT: api/User/5
+        // PUT: api/TitleAkas/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutTitleAkas(string id, TitleAkas titleAkas)
         {
-            if (id != user.UserId)
+            if (id != titleAkas.TitleId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(titleAkas).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace MovieCorner.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!TitleAkasExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace MovieCorner.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/TitleAkas
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<TitleAkas>> PostTitleAkas(TitleAkas titleAkas)
         {
-            _context.User.Add(user);
+            _context.TitleAkas.Add(titleAkas);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (TitleAkasExists(titleAkas.TitleId))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace MovieCorner.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetTitleAkas", new { id = titleAkas.TitleId }, titleAkas);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/TitleAkas/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<TitleAkas>> DeleteTitleAkas(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var titleAkas = await _context.TitleAkas.FindAsync(id);
+            if (titleAkas == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.TitleAkas.Remove(titleAkas);
             await _context.SaveChangesAsync();
 
-            return user;
+            return titleAkas;
         }
 
-        private bool UserExists(int id)
+        private bool TitleAkasExists(string id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.TitleAkas.Any(e => e.TitleId == id);
         }
     }
 }

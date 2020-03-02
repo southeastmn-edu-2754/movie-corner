@@ -12,48 +12,48 @@ namespace MovieCorner.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class ArtistCategoryController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public UserController(MoviesContext context)
+        public ArtistCategoryController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/ArtistCategory
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<ArtistCategory>>> GetArtistCategory()
         {
-            return await _context.User.ToListAsync();
+            return await _context.ArtistCategory.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/ArtistCategory/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<ArtistCategory>> GetArtistCategory(string id)
         {
-            var user = await _context.User.FindAsync(id);
+            var artistCategory = await _context.ArtistCategory.FindAsync(id);
 
-            if (user == null)
+            if (artistCategory == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return artistCategory;
         }
 
-        // PUT: api/User/5
+        // PUT: api/ArtistCategory/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutArtistCategory(string id, ArtistCategory artistCategory)
         {
-            if (id != user.UserId)
+            if (id != artistCategory.Category)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(artistCategory).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace MovieCorner.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!ArtistCategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace MovieCorner.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/ArtistCategory
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<ArtistCategory>> PostArtistCategory(ArtistCategory artistCategory)
         {
-            _context.User.Add(user);
+            _context.ArtistCategory.Add(artistCategory);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (ArtistCategoryExists(artistCategory.Category))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace MovieCorner.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetArtistCategory", new { id = artistCategory.Category }, artistCategory);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/ArtistCategory/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<ArtistCategory>> DeleteArtistCategory(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var artistCategory = await _context.ArtistCategory.FindAsync(id);
+            if (artistCategory == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.ArtistCategory.Remove(artistCategory);
             await _context.SaveChangesAsync();
 
-            return user;
+            return artistCategory;
         }
 
-        private bool UserExists(int id)
+        private bool ArtistCategoryExists(string id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.ArtistCategory.Any(e => e.Category == id);
         }
     }
 }

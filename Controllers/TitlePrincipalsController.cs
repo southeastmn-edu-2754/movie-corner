@@ -12,48 +12,48 @@ namespace MovieCorner.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class TitlePrincipalsController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public UserController(MoviesContext context)
+        public TitlePrincipalsController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/TitlePrincipals
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<TitlePrincipals>>> GetTitlePrincipals()
         {
-            return await _context.User.ToListAsync();
+            return await _context.TitlePrincipals.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/TitlePrincipals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<TitlePrincipals>> GetTitlePrincipals(string id)
         {
-            var user = await _context.User.FindAsync(id);
+            var titlePrincipals = await _context.TitlePrincipals.FindAsync(id);
 
-            if (user == null)
+            if (titlePrincipals == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return titlePrincipals;
         }
 
-        // PUT: api/User/5
+        // PUT: api/TitlePrincipals/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutTitlePrincipals(string id, TitlePrincipals titlePrincipals)
         {
-            if (id != user.UserId)
+            if (id != titlePrincipals.Tconst)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(titlePrincipals).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace MovieCorner.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!TitlePrincipalsExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace MovieCorner.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/TitlePrincipals
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<TitlePrincipals>> PostTitlePrincipals(TitlePrincipals titlePrincipals)
         {
-            _context.User.Add(user);
+            _context.TitlePrincipals.Add(titlePrincipals);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (TitlePrincipalsExists(titlePrincipals.Tconst))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace MovieCorner.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetTitlePrincipals", new { id = titlePrincipals.Tconst }, titlePrincipals);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/TitlePrincipals/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<TitlePrincipals>> DeleteTitlePrincipals(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var titlePrincipals = await _context.TitlePrincipals.FindAsync(id);
+            if (titlePrincipals == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.TitlePrincipals.Remove(titlePrincipals);
             await _context.SaveChangesAsync();
 
-            return user;
+            return titlePrincipals;
         }
 
-        private bool UserExists(int id)
+        private bool TitlePrincipalsExists(string id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.TitlePrincipals.Any(e => e.Tconst == id);
         }
     }
 }

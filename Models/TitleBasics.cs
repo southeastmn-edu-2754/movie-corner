@@ -23,6 +23,7 @@ namespace MovieCorner.Models
         public string RuntimeMinutes { get; set; }
         public string Genres { get; set; }
 
+        public virtual UserTitleRating UserTitlerating { get; set; }
         public virtual ICollection<TitleAkas> TitleAkas { get; set; }
         public virtual ICollection<TitleGenre> TitleGenre { get; set; }
         public virtual ICollection<TitlePrincipals> TitlePrincipals { get; set; }

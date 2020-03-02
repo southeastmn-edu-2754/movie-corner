@@ -18,6 +18,7 @@ namespace MovieCorner.Data
 
         public virtual DbSet<ArtistCategory> ArtistCategory { get; set; }
         public virtual DbSet<NameBasics> NameBasics { get; set; }
+        public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<TitleAkas> TitleAkas { get; set; }
         public virtual DbSet<TitleBasics> TitleBasics { get; set; }
         public virtual DbSet<TitleEpisode> TitleEpisode { get; set; }
@@ -25,6 +26,8 @@ namespace MovieCorner.Data
         public virtual DbSet<TitlePrincipals> TitlePrincipals { get; set; }
         public virtual DbSet<TitleRatings> TitleRatings { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserTitleRating> UserTitleRating { get; set; }
+        public virtual DbSet<UserWatchlists> UserWatchlists { get; set; }
         public virtual DbSet<Watchlist> Watchlist { get; set; }
         public virtual DbSet<WatchlistTitles> WatchlistTitles { get; set; }
 
@@ -94,6 +97,20 @@ namespace MovieCorner.Data
                     .HasColumnName("primaryProfession")
                     .HasMaxLength(100)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Permission>(entity =>
+            {
+                entity.ToTable("permission", "cms");
+
+                entity.Property(e => e.PermissionId)
+                    .HasColumnName("permissionId")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.PermissionName)
+                    .IsRequired()
+                    .HasColumnName("permissionName")
+                    .HasMaxLength(30);
             });
 
             modelBuilder.Entity<TitleAkas>(entity =>
@@ -376,7 +393,9 @@ namespace MovieCorner.Data
             {
                 entity.ToTable("user", "cms");
 
-                entity.Property(e => e.UserId).HasColumnName("userId");
+                entity.Property(e => e.UserId)
+                    .HasColumnName("userId")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.FullName)
                     .IsRequired()
@@ -387,6 +406,79 @@ namespace MovieCorner.Data
                     .IsRequired()
                     .HasColumnName("userName")
                     .HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<UserTitleRating>(entity =>
+            {
+                entity.HasKey(e => e.Tconst);
+
+                entity.ToTable("user_titlerating", "cms");
+
+                entity.Property(e => e.Tconst)
+                    .HasColumnName("tconst")
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Rating).HasColumnName("rating");
+
+                entity.Property(e => e.RatingDate)
+                    .HasColumnName("ratingDate")
+                    .HasColumnType("smalldatetime");
+
+                entity.Property(e => e.RatingId).HasColumnName("ratingId");
+
+                entity.Property(e => e.UserRatingId).HasColumnName("userratingId");
+
+                entity.HasOne(d => d.TconstNavigation)
+                    .WithOne(p => p.UserTitlerating)
+                    .HasForeignKey<UserTitleRating>(d => d.Tconst)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_titlerating_title_basics");
+
+                entity.HasOne(d => d.UserRating)
+                    .WithMany(p => p.UserTitleRating)
+                    .HasForeignKey(d => d.UserRatingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_titlerating_user");
+            });
+
+            modelBuilder.Entity<UserWatchlists>(entity =>
+            {
+                entity.HasKey(e => e.UserwatchlistId)
+                    .HasName("PK_user_watchlists_1");
+
+                entity.ToTable("user_watchlists", "cms");
+
+                entity.Property(e => e.UserwatchlistId)
+                    .HasColumnName("userwatchlistId")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Permission).HasColumnName("permission");
+
+                entity.Property(e => e.WatchlistCreated)
+                    .HasColumnName("watchlistCreated")
+                    .HasColumnType("smalldatetime");
+
+                entity.Property(e => e.WatchlistownerId).HasColumnName("watchlistownerId");
+
+                entity.HasOne(d => d.PermissionNavigation)
+                    .WithMany(p => p.UserWatchlists)
+                    .HasForeignKey(d => d.Permission)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_watchlists_permission");
+
+                entity.HasOne(d => d.Watchlistowner)
+                    .WithMany(p => p.UserWatchlists)
+                    .HasForeignKey(d => d.WatchlistownerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_watchlists_user");
+
+                entity.HasOne(d => d.WatchlistownerNavigation)
+                    .WithMany(p => p.UserWatchlists)
+                    .HasForeignKey(d => d.WatchlistownerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_watchlists_watchlist");
             });
 
             modelBuilder.Entity<Watchlist>(entity =>
@@ -401,10 +493,18 @@ namespace MovieCorner.Data
                     .HasColumnName("created")
                     .HasColumnType("smalldatetime");
 
+                entity.Property(e => e.Permission).HasColumnName("permission");
+
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnName("title")
                     .HasMaxLength(50);
+
+                entity.HasOne(d => d.PermissionNavigation)
+                    .WithMany(p => p.Watchlist)
+                    .HasForeignKey(d => d.Permission)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_watchlist_permission");
             });
 
             modelBuilder.Entity<WatchlistTitles>(entity =>

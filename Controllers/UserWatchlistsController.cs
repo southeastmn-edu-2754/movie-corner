@@ -12,48 +12,48 @@ namespace MovieCorner.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserWatchlistsController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public UserController(MoviesContext context)
+        public UserWatchlistsController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/UserWatchlists
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<UserWatchlists>>> GetUserWatchlists()
         {
-            return await _context.User.ToListAsync();
+            return await _context.UserWatchlists.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/UserWatchlists/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserWatchlists>> GetUserWatchlists(int id)
         {
-            var user = await _context.User.FindAsync(id);
+            var userWatchlists = await _context.UserWatchlists.FindAsync(id);
 
-            if (user == null)
+            if (userWatchlists == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return userWatchlists;
         }
 
-        // PUT: api/User/5
+        // PUT: api/UserWatchlists/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUserWatchlists(int id, UserWatchlists userWatchlists)
         {
-            if (id != user.UserId)
+            if (id != userWatchlists.UserwatchlistId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(userWatchlists).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace MovieCorner.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!UserWatchlistsExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace MovieCorner.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/UserWatchlists
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<UserWatchlists>> PostUserWatchlists(UserWatchlists userWatchlists)
         {
-            _context.User.Add(user);
+            _context.UserWatchlists.Add(userWatchlists);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (UserWatchlistsExists(userWatchlists.UserwatchlistId))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace MovieCorner.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetUserWatchlists", new { id = userWatchlists.UserwatchlistId }, userWatchlists);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/UserWatchlists/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<UserWatchlists>> DeleteUserWatchlists(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var userWatchlists = await _context.UserWatchlists.FindAsync(id);
+            if (userWatchlists == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.UserWatchlists.Remove(userWatchlists);
             await _context.SaveChangesAsync();
 
-            return user;
+            return userWatchlists;
         }
 
-        private bool UserExists(int id)
+        private bool UserWatchlistsExists(int id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.UserWatchlists.Any(e => e.UserwatchlistId == id);
         }
     }
 }
