@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieCorner.Data;
 using MovieCorner.Models;
 
-namespace MovieCorner.Controllers
+namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -81,21 +81,7 @@ namespace MovieCorner.Controllers
         public async Task<ActionResult<Permission>> PostPermission(Permission permission)
         {
             _context.Permission.Add(permission);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (PermissionExists(permission.PermissionId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPermission", new { id = permission.PermissionId }, permission);
         }

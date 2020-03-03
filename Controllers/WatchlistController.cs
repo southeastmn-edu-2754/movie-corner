@@ -12,48 +12,48 @@ namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NameBasicsController : ControllerBase
+    public class WatchlistController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public NameBasicsController(MoviesContext context)
+        public WatchlistController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/NameBasics
+        // GET: api/Watchlist
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<NameBasics>>> GetNameBasics()
+        public async Task<ActionResult<IEnumerable<Watchlist>>> GetWatchlist()
         {
-            return await _context.NameBasics.ToListAsync();
+            return await _context.Watchlist.ToListAsync();
         }
 
-        // GET: api/NameBasics/5
+        // GET: api/Watchlist/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<NameBasics>> GetNameBasics(string id)
+        public async Task<ActionResult<Watchlist>> GetWatchlist(int id)
         {
-            var nameBasics = await _context.NameBasics.FindAsync(id);
+            var watchlist = await _context.Watchlist.FindAsync(id);
 
-            if (nameBasics == null)
+            if (watchlist == null)
             {
                 return NotFound();
             }
 
-            return nameBasics;
+            return watchlist;
         }
 
-        // PUT: api/NameBasics/5
+        // PUT: api/Watchlist/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutNameBasics(string id, NameBasics nameBasics)
+        public async Task<IActionResult> PutWatchlist(int id, Watchlist watchlist)
         {
-            if (id != nameBasics.Nconst)
+            if (id != watchlist.WatchlistId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(nameBasics).State = EntityState.Modified;
+            _context.Entry(watchlist).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace _2754_movie_corner_2020.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!NameBasicsExists(id))
+                if (!WatchlistExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace _2754_movie_corner_2020.Controllers
             return NoContent();
         }
 
-        // POST: api/NameBasics
+        // POST: api/Watchlist
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<NameBasics>> PostNameBasics(NameBasics nameBasics)
+        public async Task<ActionResult<Watchlist>> PostWatchlist(Watchlist watchlist)
         {
-            _context.NameBasics.Add(nameBasics);
+            _context.Watchlist.Add(watchlist);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (NameBasicsExists(nameBasics.Nconst))
+                if (WatchlistExists(watchlist.WatchlistId))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace _2754_movie_corner_2020.Controllers
                 }
             }
 
-            return CreatedAtAction("GetNameBasics", new { id = nameBasics.Nconst }, nameBasics);
+            return CreatedAtAction("GetWatchlist", new { id = watchlist.WatchlistId }, watchlist);
         }
 
-        // DELETE: api/NameBasics/5
+        // DELETE: api/Watchlist/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<NameBasics>> DeleteNameBasics(string id)
+        public async Task<ActionResult<Watchlist>> DeleteWatchlist(int id)
         {
-            var nameBasics = await _context.NameBasics.FindAsync(id);
-            if (nameBasics == null)
+            var watchlist = await _context.Watchlist.FindAsync(id);
+            if (watchlist == null)
             {
                 return NotFound();
             }
 
-            _context.NameBasics.Remove(nameBasics);
+            _context.Watchlist.Remove(watchlist);
             await _context.SaveChangesAsync();
 
-            return nameBasics;
+            return watchlist;
         }
 
-        private bool NameBasicsExists(string id)
+        private bool WatchlistExists(int id)
         {
-            return _context.NameBasics.Any(e => e.Nconst == id);
+            return _context.Watchlist.Any(e => e.WatchlistId == id);
         }
     }
 }

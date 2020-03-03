@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieCorner.Data;
 using MovieCorner.Models;
 
-namespace MovieCorner.Controllers
+namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

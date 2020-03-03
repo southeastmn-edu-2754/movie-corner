@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieCorner.Data;
 using MovieCorner.Models;
 
-namespace MovieCorner.Controllers
+namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -81,21 +81,7 @@ namespace MovieCorner.Controllers
         public async Task<ActionResult<User>> PostUser(User user)
         {
             _context.User.Add(user);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (UserExists(user.UserId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }

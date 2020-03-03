@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieCorner.Data;
 using MovieCorner.Models;
 
-namespace MovieCorner.Controllers
+namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -48,7 +48,7 @@ namespace MovieCorner.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserWatchlists(int id, UserWatchlists userWatchlists)
         {
-            if (id != userWatchlists.UserwatchlistId)
+            if (id != userWatchlists.UserId)
             {
                 return BadRequest();
             }
@@ -87,7 +87,7 @@ namespace MovieCorner.Controllers
             }
             catch (DbUpdateException)
             {
-                if (UserWatchlistsExists(userWatchlists.UserwatchlistId))
+                if (UserWatchlistsExists(userWatchlists.UserId))
                 {
                     return Conflict();
                 }
@@ -97,7 +97,7 @@ namespace MovieCorner.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUserWatchlists", new { id = userWatchlists.UserwatchlistId }, userWatchlists);
+            return CreatedAtAction("GetUserWatchlists", new { id = userWatchlists.UserId }, userWatchlists);
         }
 
         // DELETE: api/UserWatchlists/5
@@ -118,7 +118,7 @@ namespace MovieCorner.Controllers
 
         private bool UserWatchlistsExists(int id)
         {
-            return _context.UserWatchlists.Any(e => e.UserwatchlistId == id);
+            return _context.UserWatchlists.Any(e => e.UserId == id);
         }
     }
 }

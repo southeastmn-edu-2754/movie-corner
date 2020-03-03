@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+
 using MovieCorner.Models;
 
 namespace MovieCorner.Data
@@ -30,15 +31,6 @@ namespace MovieCorner.Data
         public virtual DbSet<UserWatchlists> UserWatchlists { get; set; }
         public virtual DbSet<Watchlist> Watchlist { get; set; }
         public virtual DbSet<WatchlistTitles> WatchlistTitles { get; set; }
-
-//         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//         {
-//             if (!optionsBuilder.IsConfigured)
-//             {
-// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                 optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Movies");
-//             }
-//         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -103,9 +95,7 @@ namespace MovieCorner.Data
             {
                 entity.ToTable("permission", "cms");
 
-                entity.Property(e => e.PermissionId)
-                    .HasColumnName("permissionId")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.PermissionId).HasColumnName("permissionId");
 
                 entity.Property(e => e.PermissionName)
                     .IsRequired()
@@ -393,13 +383,20 @@ namespace MovieCorner.Data
             {
                 entity.ToTable("user", "cms");
 
-                entity.Property(e => e.UserId)
-                    .HasColumnName("userId")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.Property(e => e.Created)
+                    .HasColumnName("created")
+                    .HasColumnType("smalldatetime");
 
                 entity.Property(e => e.FullName)
                     .IsRequired()
                     .HasColumnName("fullName")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnName("password")
                     .HasMaxLength(50);
 
                 entity.Property(e => e.UserName)
@@ -410,9 +407,12 @@ namespace MovieCorner.Data
 
             modelBuilder.Entity<UserTitleRating>(entity =>
             {
-                entity.HasKey(e => e.Tconst);
+                entity.HasKey(e => new { e.UserId, e.Tconst })
+                    .HasName("PK_user_titlerating");
 
-                entity.ToTable("user_titlerating", "cms");
+                entity.ToTable("user_title_rating", "cms");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
 
                 entity.Property(e => e.Tconst)
                     .HasColumnName("tconst")
@@ -420,63 +420,56 @@ namespace MovieCorner.Data
                     .IsUnicode(false)
                     .IsFixedLength();
 
-                entity.Property(e => e.Rating).HasColumnName("rating");
-
-                entity.Property(e => e.RatingDate)
-                    .HasColumnName("ratingDate")
+                entity.Property(e => e.Created)
+                    .HasColumnName("created")
                     .HasColumnType("smalldatetime");
 
-                entity.Property(e => e.RatingId).HasColumnName("ratingId");
-
-                entity.Property(e => e.UserRatingId).HasColumnName("userratingId");
+                entity.Property(e => e.Rating).HasColumnName("rating");
 
                 entity.HasOne(d => d.TconstNavigation)
-                    .WithOne(p => p.UserTitlerating)
-                    .HasForeignKey<UserTitleRating>(d => d.Tconst)
+                    .WithMany(p => p.UserTitleRating)
+                    .HasForeignKey(d => d.Tconst)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_titlerating_title_basics");
 
-                entity.HasOne(d => d.UserRating)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.UserTitleRating)
-                    .HasForeignKey(d => d.UserRatingId)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_titlerating_user");
             });
 
             modelBuilder.Entity<UserWatchlists>(entity =>
             {
-                entity.HasKey(e => e.UserwatchlistId)
-                    .HasName("PK_user_watchlists_1");
+                entity.HasKey(e => new { e.UserId, e.WatchlistId });
 
                 entity.ToTable("user_watchlists", "cms");
 
-                entity.Property(e => e.UserwatchlistId)
-                    .HasColumnName("userwatchlistId")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.UserId).HasColumnName("userId");
 
-                entity.Property(e => e.Permission).HasColumnName("permission");
+                entity.Property(e => e.WatchlistId).HasColumnName("watchlistId");
 
-                entity.Property(e => e.WatchlistCreated)
-                    .HasColumnName("watchlistCreated")
+                entity.Property(e => e.Created)
+                    .HasColumnName("created")
                     .HasColumnType("smalldatetime");
 
-                entity.Property(e => e.WatchlistownerId).HasColumnName("watchlistownerId");
+                entity.Property(e => e.PermissionId).HasColumnName("permissionId");
 
-                entity.HasOne(d => d.PermissionNavigation)
+                entity.HasOne(d => d.Permission)
                     .WithMany(p => p.UserWatchlists)
-                    .HasForeignKey(d => d.Permission)
+                    .HasForeignKey(d => d.PermissionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_watchlists_permission");
 
-                entity.HasOne(d => d.Watchlistowner)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.UserWatchlists)
-                    .HasForeignKey(d => d.WatchlistownerId)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_watchlists_user");
 
-                entity.HasOne(d => d.WatchlistownerNavigation)
+                entity.HasOne(d => d.Watchlist)
                     .WithMany(p => p.UserWatchlists)
-                    .HasForeignKey(d => d.WatchlistownerId)
+                    .HasForeignKey(d => d.WatchlistId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_watchlists_watchlist");
             });
@@ -493,18 +486,10 @@ namespace MovieCorner.Data
                     .HasColumnName("created")
                     .HasColumnType("smalldatetime");
 
-                entity.Property(e => e.Permission).HasColumnName("permission");
-
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnName("title")
                     .HasMaxLength(50);
-
-                entity.HasOne(d => d.PermissionNavigation)
-                    .WithMany(p => p.Watchlist)
-                    .HasForeignKey(d => d.Permission)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_watchlist_permission");
             });
 
             modelBuilder.Entity<WatchlistTitles>(entity =>
@@ -525,21 +510,21 @@ namespace MovieCorner.Data
                     .HasColumnName("created")
                     .HasColumnType("smalldatetime");
 
-                entity.Property(e => e.OwnerId).HasColumnName("ownerId");
-
                 entity.Property(e => e.SequenceNum).HasColumnName("sequenceNum");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.WatchlistTitles)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_watchlist_titles_user");
+                entity.Property(e => e.UserId).HasColumnName("userId");
 
                 entity.HasOne(d => d.TconstNavigation)
                     .WithMany(p => p.WatchlistTitles)
                     .HasForeignKey(d => d.Tconst)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_watchlist_titles_title_basics");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.WatchlistTitles)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_watchlist_titles_user");
 
                 entity.HasOne(d => d.Watchlist)
                     .WithMany(p => p.WatchlistTitles)

@@ -14,9 +14,7 @@ namespace MovieCorner.Models
         public int WatchlistId { get; set; }
         public string Title { get; set; }
         public DateTime Created { get; set; }
-        public int Permission { get; set; }
 
-        public virtual Permission PermissionNavigation { get; set; }
         public virtual ICollection<UserWatchlists> UserWatchlists { get; set; }
         public virtual ICollection<WatchlistTitles> WatchlistTitles { get; set; }
     }
