@@ -14,38 +14,56 @@ namespace MovieCorner.Data
         {
             context.Database.EnsureCreated();
 
-            // Check for previously populated TitleGenre table
+            // Check for previously populated User table
             if (!context.User.Any())
             {
                 var users = new User[] 
                 {
-                    new User { UserName = "Jason.Smith",        FullName = "Jason Smith" },
-                    new User { UserName = "Molly.Johnson",      FullName = "Molly Johnson" },
-                    new User { UserName = "Benjamin.Thompson",  FullName = "Benjamin Thompson" },
-                    new User { UserName = "Ashley.Bates",       FullName = "Ashley Bates" },
-                    new User { UserName = "Jillian.Sorenson",   FullName = "Jillian Sorenson" },
+                    new User { UserName = "Jason.Smith",        FullName = "Jason Smith",       Password = "", Created = DateTime.Now },
+                    new User { UserName = "Molly.Johnson",      FullName = "Molly Johnson",     Password = "", Created = DateTime.Now },
+                    new User { UserName = "Benjamin.Thompson",  FullName = "Benjamin Thompson", Password = "", Created = DateTime.Now },
+                    new User { UserName = "Ashley.Bates",       FullName = "Ashley Bates",      Password = "", Created = DateTime.Now },
+                    new User { UserName = "Jillian.Sorenson",   FullName = "Jillian Sorenson",  Password = "", Created = DateTime.Now },
 
-                    new User { UserName = "Johnathon.Bourne",   FullName = "Johnathon Bourne" },
-                    new User { UserName = "Maddy.Peters",       FullName = "Maddy Peters" },
-                    new User { UserName = "Dylan.Williams",     FullName = "Dylan Williams" },
-                    new User { UserName = "Emma.Jones",         FullName = "Emma Jones" },
-                    new User { UserName = "Joshua.Miller",      FullName = "Joshua Miller" },
+                    new User { UserName = "Johnathon.Bourne",   FullName = "Johnathon Bourne",  Password = "", Created = DateTime.Now },
+                    new User { UserName = "Maddy.Peters",       FullName = "Maddy Peters",      Password = "", Created = DateTime.Now },
+                    new User { UserName = "Dylan.Williams",     FullName = "Dylan Williams",    Password = "", Created = DateTime.Now },
+                    new User { UserName = "Emma.Jones",         FullName = "Emma Jones",        Password = "", Created = DateTime.Now },
+                    new User { UserName = "Joshua.Miller",      FullName = "Joshua Miller",     Password = "", Created = DateTime.Now },
 
-                    new User { UserName = "Olivia.Craig",       FullName = "Olivia Craig" },
-                    new User { UserName = "Lucas.Brown",        FullName = "Lucas Brown" },
-                    new User { UserName = "Sophie.Wilson",      FullName = "Sophie Wilson" },
-                    new User { UserName = "Mason.Thomas",       FullName = "Mason Thomas" },
-                    new User { UserName = "Evelyn.White",       FullName = "Evelyn White" },
+                    new User { UserName = "Olivia.Craig",       FullName = "Olivia Craig",      Password = "", Created = DateTime.Now },
+                    new User { UserName = "Lucas.Brown",        FullName = "Lucas Brown",       Password = "", Created = DateTime.Now },
+                    new User { UserName = "Sophie.Wilson",      FullName = "Sophie Wilson",     Password = "", Created = DateTime.Now },
+                    new User { UserName = "Mason.Thomas",       FullName = "Mason Thomas",      Password = "", Created = DateTime.Now },
+                    new User { UserName = "Evelyn.White",       FullName = "Evelyn White",      Password = "", Created = DateTime.Now },
 
-                    new User { UserName = "Jacob.Harris",       FullName = "Jacob Harris" },
-                    new User { UserName = "Emily.Clark",        FullName = "Emily Clark" },
-                    new User { UserName = "Daniel.Lee",         FullName = "Daniel Lee" },
-                    new User { UserName = "Elizabeth.Hall",     FullName = "Elizabeth Hall" },
-                    new User { UserName = "Henry.King",         FullName = "Henry King" }
+                    new User { UserName = "Jacob.Harris",       FullName = "Jacob Harris",      Password = "", Created = DateTime.Now },
+                    new User { UserName = "Emily.Clark",        FullName = "Emily Clark",       Password = "", Created = DateTime.Now },
+                    new User { UserName = "Daniel.Lee",         FullName = "Daniel Lee",        Password = "", Created = DateTime.Now },
+                    new User { UserName = "Elizabeth.Hall",     FullName = "Elizabeth Hall",    Password = "", Created = DateTime.Now },
+                    new User { UserName = "Henry.King",         FullName = "Henry King",        Password = "", Created = DateTime.Now }
                 };
                 foreach (User u in users) 
                 {
                     context.User.Add(u);
+                }
+                context.SaveChanges();
+            }
+
+            // Check for previously populated Permission table
+            if (!context.Permission.Any())
+            {
+                var permissions = new Permission[] 
+                {
+                   new Permission { PermissionName = "Admin"},
+                   new Permission { PermissionName = "Owner"},
+                   new Permission { PermissionName = "Write"},
+                   new Permission { PermissionName = "Read"},
+                   new Permission { PermissionName = "None"}
+                };
+                foreach (Permission p in permissions) 
+                {
+                    context.Permission.Add(p);
                 }
                 context.SaveChanges();
             }

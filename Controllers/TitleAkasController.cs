@@ -12,48 +12,48 @@ namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TitleBasicsController : ControllerBase
+    public class TitleAkasController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public TitleBasicsController(MoviesContext context)
+        public TitleAkasController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/TitleBasics
+        // GET: api/TitleAkas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TitleBasics>>> GetTitleBasics()
+        public async Task<ActionResult<IEnumerable<TitleAkas>>> GetTitleAkas()
         {
-            return await _context.TitleBasics.ToListAsync();
+            return await _context.TitleAkas.ToListAsync();
         }
 
-        // GET: api/TitleBasics/5
+        // GET: api/TitleAkas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TitleBasics>> GetTitleBasics(string id)
+        public async Task<ActionResult<TitleAkas>> GetTitleAkas(string id)
         {
-            var titleBasics = await _context.TitleBasics.FindAsync(id);
+            var titleAkas = await _context.TitleAkas.FindAsync(id);
 
-            if (titleBasics == null)
+            if (titleAkas == null)
             {
                 return NotFound();
             }
 
-            return titleBasics;
+            return titleAkas;
         }
 
-        // PUT: api/TitleBasics/5
+        // PUT: api/TitleAkas/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTitleBasics(string id, TitleBasics titleBasics)
+        public async Task<IActionResult> PutTitleAkas(string id, TitleAkas titleAkas)
         {
-            if (id != titleBasics.Tconst)
+            if (id != titleAkas.TitleId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(titleBasics).State = EntityState.Modified;
+            _context.Entry(titleAkas).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace _2754_movie_corner_2020.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TitleBasicsExists(id))
+                if (!TitleAkasExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace _2754_movie_corner_2020.Controllers
             return NoContent();
         }
 
-        // POST: api/TitleBasics
+        // POST: api/TitleAkas
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<TitleBasics>> PostTitleBasics(TitleBasics titleBasics)
+        public async Task<ActionResult<TitleAkas>> PostTitleAkas(TitleAkas titleAkas)
         {
-            _context.TitleBasics.Add(titleBasics);
+            _context.TitleAkas.Add(titleAkas);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TitleBasicsExists(titleBasics.Tconst))
+                if (TitleAkasExists(titleAkas.TitleId))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace _2754_movie_corner_2020.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTitleBasics", new { id = titleBasics.Tconst }, titleBasics);
+            return CreatedAtAction("GetTitleAkas", new { id = titleAkas.TitleId }, titleAkas);
         }
 
-        // DELETE: api/TitleBasics/5
+        // DELETE: api/TitleAkas/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TitleBasics>> DeleteTitleBasics(string id)
+        public async Task<ActionResult<TitleAkas>> DeleteTitleAkas(string id)
         {
-            var titleBasics = await _context.TitleBasics.FindAsync(id);
-            if (titleBasics == null)
+            var titleAkas = await _context.TitleAkas.FindAsync(id);
+            if (titleAkas == null)
             {
                 return NotFound();
             }
 
-            _context.TitleBasics.Remove(titleBasics);
+            _context.TitleAkas.Remove(titleAkas);
             await _context.SaveChangesAsync();
 
-            return titleBasics;
+            return titleAkas;
         }
 
-        private bool TitleBasicsExists(string id)
+        private bool TitleAkasExists(string id)
         {
-            return _context.TitleBasics.Any(e => e.Tconst == id);
+            return _context.TitleAkas.Any(e => e.TitleId == id);
         }
     }
 }

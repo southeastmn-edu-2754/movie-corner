@@ -7,6 +7,7 @@ namespace MovieCorner.Models
     {
         public Watchlist()
         {
+            UserWatchlists = new HashSet<UserWatchlists>();
             WatchlistTitles = new HashSet<WatchlistTitles>();
         }
 
@@ -14,6 +15,7 @@ namespace MovieCorner.Models
         public string Title { get; set; }
         public DateTime Created { get; set; }
 
+        public virtual ICollection<UserWatchlists> UserWatchlists { get; set; }
         public virtual ICollection<WatchlistTitles> WatchlistTitles { get; set; }
     }
 }

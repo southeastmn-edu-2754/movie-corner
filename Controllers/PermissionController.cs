@@ -12,48 +12,48 @@ namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class PermissionController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public UserController(MoviesContext context)
+        public PermissionController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/Permission
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Permission>>> GetPermission()
         {
-            return await _context.User.ToListAsync();
+            return await _context.Permission.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/Permission/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Permission>> GetPermission(int id)
         {
-            var user = await _context.User.FindAsync(id);
+            var permission = await _context.Permission.FindAsync(id);
 
-            if (user == null)
+            if (permission == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return permission;
         }
 
-        // PUT: api/User/5
+        // PUT: api/Permission/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutPermission(int id, Permission permission)
         {
-            if (id != user.UserId)
+            if (id != permission.PermissionId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(permission).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace _2754_movie_corner_2020.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!PermissionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace _2754_movie_corner_2020.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/Permission
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Permission>> PostPermission(Permission permission)
         {
-            _context.User.Add(user);
+            _context.Permission.Add(permission);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetPermission", new { id = permission.PermissionId }, permission);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Permission/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<Permission>> DeletePermission(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var permission = await _context.Permission.FindAsync(id);
+            if (permission == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.Permission.Remove(permission);
             await _context.SaveChangesAsync();
 
-            return user;
+            return permission;
         }
 
-        private bool UserExists(int id)
+        private bool PermissionExists(int id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.Permission.Any(e => e.PermissionId == id);
         }
     }
 }

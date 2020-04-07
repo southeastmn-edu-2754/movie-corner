@@ -12,48 +12,48 @@ namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TitleBasicsController : ControllerBase
+    public class UserTitleRatingController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public TitleBasicsController(MoviesContext context)
+        public UserTitleRatingController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/TitleBasics
+        // GET: api/UserTitleRating
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TitleBasics>>> GetTitleBasics()
+        public async Task<ActionResult<IEnumerable<UserTitleRating>>> GetUserTitleRating()
         {
-            return await _context.TitleBasics.ToListAsync();
+            return await _context.UserTitleRating.ToListAsync();
         }
 
-        // GET: api/TitleBasics/5
+        // GET: api/UserTitleRating/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TitleBasics>> GetTitleBasics(string id)
+        public async Task<ActionResult<UserTitleRating>> GetUserTitleRating(int id)
         {
-            var titleBasics = await _context.TitleBasics.FindAsync(id);
+            var userTitleRating = await _context.UserTitleRating.FindAsync(id);
 
-            if (titleBasics == null)
+            if (userTitleRating == null)
             {
                 return NotFound();
             }
 
-            return titleBasics;
+            return userTitleRating;
         }
 
-        // PUT: api/TitleBasics/5
+        // PUT: api/UserTitleRating/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTitleBasics(string id, TitleBasics titleBasics)
+        public async Task<IActionResult> PutUserTitleRating(int id, UserTitleRating userTitleRating)
         {
-            if (id != titleBasics.Tconst)
+            if (id != userTitleRating.UserId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(titleBasics).State = EntityState.Modified;
+            _context.Entry(userTitleRating).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace _2754_movie_corner_2020.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TitleBasicsExists(id))
+                if (!UserTitleRatingExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace _2754_movie_corner_2020.Controllers
             return NoContent();
         }
 
-        // POST: api/TitleBasics
+        // POST: api/UserTitleRating
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<TitleBasics>> PostTitleBasics(TitleBasics titleBasics)
+        public async Task<ActionResult<UserTitleRating>> PostUserTitleRating(UserTitleRating userTitleRating)
         {
-            _context.TitleBasics.Add(titleBasics);
+            _context.UserTitleRating.Add(userTitleRating);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TitleBasicsExists(titleBasics.Tconst))
+                if (UserTitleRatingExists(userTitleRating.UserId))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace _2754_movie_corner_2020.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTitleBasics", new { id = titleBasics.Tconst }, titleBasics);
+            return CreatedAtAction("GetUserTitleRating", new { id = userTitleRating.UserId }, userTitleRating);
         }
 
-        // DELETE: api/TitleBasics/5
+        // DELETE: api/UserTitleRating/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TitleBasics>> DeleteTitleBasics(string id)
+        public async Task<ActionResult<UserTitleRating>> DeleteUserTitleRating(int id)
         {
-            var titleBasics = await _context.TitleBasics.FindAsync(id);
-            if (titleBasics == null)
+            var userTitleRating = await _context.UserTitleRating.FindAsync(id);
+            if (userTitleRating == null)
             {
                 return NotFound();
             }
 
-            _context.TitleBasics.Remove(titleBasics);
+            _context.UserTitleRating.Remove(userTitleRating);
             await _context.SaveChangesAsync();
 
-            return titleBasics;
+            return userTitleRating;
         }
 
-        private bool TitleBasicsExists(string id)
+        private bool UserTitleRatingExists(int id)
         {
-            return _context.TitleBasics.Any(e => e.Tconst == id);
+            return _context.UserTitleRating.Any(e => e.UserId == id);
         }
     }
 }

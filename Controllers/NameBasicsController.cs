@@ -12,48 +12,48 @@ namespace _2754_movie_corner_2020.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TitleBasicsController : ControllerBase
+    public class NameBasicsController : ControllerBase
     {
         private readonly MoviesContext _context;
 
-        public TitleBasicsController(MoviesContext context)
+        public NameBasicsController(MoviesContext context)
         {
             _context = context;
         }
 
-        // GET: api/TitleBasics
+        // GET: api/NameBasics
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TitleBasics>>> GetTitleBasics()
+        public async Task<ActionResult<IEnumerable<NameBasics>>> GetNameBasics()
         {
-            return await _context.TitleBasics.ToListAsync();
+            return await _context.NameBasics.ToListAsync();
         }
 
-        // GET: api/TitleBasics/5
+        // GET: api/NameBasics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TitleBasics>> GetTitleBasics(string id)
+        public async Task<ActionResult<NameBasics>> GetNameBasics(string id)
         {
-            var titleBasics = await _context.TitleBasics.FindAsync(id);
+            var nameBasics = await _context.NameBasics.FindAsync(id);
 
-            if (titleBasics == null)
+            if (nameBasics == null)
             {
                 return NotFound();
             }
 
-            return titleBasics;
+            return nameBasics;
         }
 
-        // PUT: api/TitleBasics/5
+        // PUT: api/NameBasics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTitleBasics(string id, TitleBasics titleBasics)
+        public async Task<IActionResult> PutNameBasics(string id, NameBasics nameBasics)
         {
-            if (id != titleBasics.Tconst)
+            if (id != nameBasics.Nconst)
             {
                 return BadRequest();
             }
 
-            _context.Entry(titleBasics).State = EntityState.Modified;
+            _context.Entry(nameBasics).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace _2754_movie_corner_2020.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TitleBasicsExists(id))
+                if (!NameBasicsExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace _2754_movie_corner_2020.Controllers
             return NoContent();
         }
 
-        // POST: api/TitleBasics
+        // POST: api/NameBasics
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<TitleBasics>> PostTitleBasics(TitleBasics titleBasics)
+        public async Task<ActionResult<NameBasics>> PostNameBasics(NameBasics nameBasics)
         {
-            _context.TitleBasics.Add(titleBasics);
+            _context.NameBasics.Add(nameBasics);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TitleBasicsExists(titleBasics.Tconst))
+                if (NameBasicsExists(nameBasics.Nconst))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace _2754_movie_corner_2020.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTitleBasics", new { id = titleBasics.Tconst }, titleBasics);
+            return CreatedAtAction("GetNameBasics", new { id = nameBasics.Nconst }, nameBasics);
         }
 
-        // DELETE: api/TitleBasics/5
+        // DELETE: api/NameBasics/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TitleBasics>> DeleteTitleBasics(string id)
+        public async Task<ActionResult<NameBasics>> DeleteNameBasics(string id)
         {
-            var titleBasics = await _context.TitleBasics.FindAsync(id);
-            if (titleBasics == null)
+            var nameBasics = await _context.NameBasics.FindAsync(id);
+            if (nameBasics == null)
             {
                 return NotFound();
             }
 
-            _context.TitleBasics.Remove(titleBasics);
+            _context.NameBasics.Remove(nameBasics);
             await _context.SaveChangesAsync();
 
-            return titleBasics;
+            return nameBasics;
         }
 
-        private bool TitleBasicsExists(string id)
+        private bool NameBasicsExists(string id)
         {
-            return _context.TitleBasics.Any(e => e.Tconst == id);
+            return _context.NameBasics.Any(e => e.Nconst == id);
         }
     }
 }

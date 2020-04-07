@@ -3,15 +3,14 @@ using System.Collections.Generic;
 
 namespace MovieCorner.Models
 {
-    public partial class WatchlistTitles
+    public partial class UserWatchlists
     {
-        public int WatchlistId { get; set; }
-        public string Tconst { get; set; }
-        public short SequenceNum { get; set; }
-        public DateTime Created { get; set; }
         public int UserId { get; set; }
+        public int WatchlistId { get; set; }
+        public int PermissionId { get; set; }
+        public DateTime Created { get; set; }
 
-        public virtual TitleBasics TconstNavigation { get; set; }
+        public virtual Permission Permission { get; set; }
         public virtual User User { get; set; }
         public virtual Watchlist Watchlist { get; set; }
     }

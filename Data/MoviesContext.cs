@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+
 using MovieCorner.Models;
 
 namespace MovieCorner.Data
@@ -18,6 +19,7 @@ namespace MovieCorner.Data
 
         public virtual DbSet<ArtistCategory> ArtistCategory { get; set; }
         public virtual DbSet<NameBasics> NameBasics { get; set; }
+        public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<TitleAkas> TitleAkas { get; set; }
         public virtual DbSet<TitleBasics> TitleBasics { get; set; }
         public virtual DbSet<TitleEpisode> TitleEpisode { get; set; }
@@ -25,17 +27,10 @@ namespace MovieCorner.Data
         public virtual DbSet<TitlePrincipals> TitlePrincipals { get; set; }
         public virtual DbSet<TitleRatings> TitleRatings { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserTitleRating> UserTitleRating { get; set; }
+        public virtual DbSet<UserWatchlists> UserWatchlists { get; set; }
         public virtual DbSet<Watchlist> Watchlist { get; set; }
         public virtual DbSet<WatchlistTitles> WatchlistTitles { get; set; }
-
-//         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//         {
-//             if (!optionsBuilder.IsConfigured)
-//             {
-// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                 optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Movies");
-//             }
-//         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -94,6 +89,18 @@ namespace MovieCorner.Data
                     .HasColumnName("primaryProfession")
                     .HasMaxLength(100)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Permission>(entity =>
+            {
+                entity.ToTable("permission", "cms");
+
+                entity.Property(e => e.PermissionId).HasColumnName("permissionId");
+
+                entity.Property(e => e.PermissionName)
+                    .IsRequired()
+                    .HasColumnName("permissionName")
+                    .HasMaxLength(30);
             });
 
             modelBuilder.Entity<TitleAkas>(entity =>
@@ -378,15 +385,93 @@ namespace MovieCorner.Data
 
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
+                entity.Property(e => e.Created)
+                    .HasColumnName("created")
+                    .HasColumnType("smalldatetime");
+
                 entity.Property(e => e.FullName)
                     .IsRequired()
                     .HasColumnName("fullName")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnName("password")
                     .HasMaxLength(50);
 
                 entity.Property(e => e.UserName)
                     .IsRequired()
                     .HasColumnName("userName")
                     .HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<UserTitleRating>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.Tconst })
+                    .HasName("PK_user_titlerating");
+
+                entity.ToTable("user_title_rating", "cms");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.Property(e => e.Tconst)
+                    .HasColumnName("tconst")
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Created)
+                    .HasColumnName("created")
+                    .HasColumnType("smalldatetime");
+
+                entity.Property(e => e.Rating).HasColumnName("rating");
+
+                entity.HasOne(d => d.TconstNavigation)
+                    .WithMany(p => p.UserTitleRating)
+                    .HasForeignKey(d => d.Tconst)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_titlerating_title_basics");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserTitleRating)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_titlerating_user");
+            });
+
+            modelBuilder.Entity<UserWatchlists>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.WatchlistId });
+
+                entity.ToTable("user_watchlists", "cms");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.Property(e => e.WatchlistId).HasColumnName("watchlistId");
+
+                entity.Property(e => e.Created)
+                    .HasColumnName("created")
+                    .HasColumnType("smalldatetime");
+
+                entity.Property(e => e.PermissionId).HasColumnName("permissionId");
+
+                entity.HasOne(d => d.Permission)
+                    .WithMany(p => p.UserWatchlists)
+                    .HasForeignKey(d => d.PermissionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_watchlists_permission");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserWatchlists)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_watchlists_user");
+
+                entity.HasOne(d => d.Watchlist)
+                    .WithMany(p => p.UserWatchlists)
+                    .HasForeignKey(d => d.WatchlistId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_user_watchlists_watchlist");
             });
 
             modelBuilder.Entity<Watchlist>(entity =>
@@ -425,21 +510,21 @@ namespace MovieCorner.Data
                     .HasColumnName("created")
                     .HasColumnType("smalldatetime");
 
-                entity.Property(e => e.OwnerId).HasColumnName("ownerId");
-
                 entity.Property(e => e.SequenceNum).HasColumnName("sequenceNum");
 
-                entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.WatchlistTitles)
-                    .HasForeignKey(d => d.OwnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_watchlist_titles_user");
+                entity.Property(e => e.UserId).HasColumnName("userId");
 
                 entity.HasOne(d => d.TconstNavigation)
                     .WithMany(p => p.WatchlistTitles)
                     .HasForeignKey(d => d.Tconst)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_watchlist_titles_title_basics");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.WatchlistTitles)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_watchlist_titles_user");
 
                 entity.HasOne(d => d.Watchlist)
                     .WithMany(p => p.WatchlistTitles)

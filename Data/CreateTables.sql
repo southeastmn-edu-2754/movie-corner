@@ -1,6 +1,20 @@
 USE [Movies]
 GO
-/****** Object:  Table [cms].[user]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [cms].[permission]    Script Date: 3/3/2020 12:36:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [cms].[permission](
+	[permissionId] [int] IDENTITY(1,1) NOT NULL,
+	[permissionName] [nvarchar](30) NOT NULL,
+ CONSTRAINT [PK_permission] PRIMARY KEY CLUSTERED 
+(
+	[permissionId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [cms].[user]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9,13 +23,49 @@ CREATE TABLE [cms].[user](
 	[userId] [int] IDENTITY(1,1) NOT NULL,
 	[userName] [nvarchar](20) NOT NULL,
 	[fullName] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](50) NOT NULL,
+	[created] [smalldatetime] NOT NULL,
  CONSTRAINT [PK_cms.user] PRIMARY KEY CLUSTERED 
 (
 	[userId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [cms].[watchlist]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [cms].[user_title_rating]    Script Date: 3/3/2020 12:36:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [cms].[user_title_rating](
+	[userId] [int] NOT NULL,
+	[tconst] [char](10) NOT NULL,
+	[rating] [int] NOT NULL,
+	[created] [smalldatetime] NOT NULL,
+ CONSTRAINT [PK_user_titlerating] PRIMARY KEY CLUSTERED 
+(
+	[userId] ASC,
+	[tconst] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [cms].[user_watchlists]    Script Date: 3/3/2020 12:36:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [cms].[user_watchlists](
+	[userId] [int] NOT NULL,
+	[watchlistId] [int] NOT NULL,
+	[permissionId] [int] NOT NULL,
+	[created] [smalldatetime] NOT NULL,
+ CONSTRAINT [PK_user_watchlists] PRIMARY KEY CLUSTERED 
+(
+	[userId] ASC,
+	[watchlistId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [cms].[watchlist]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30,7 +80,7 @@ CREATE TABLE [cms].[watchlist](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [cms].[watchlist_titles]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [cms].[watchlist_titles]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -40,7 +90,7 @@ CREATE TABLE [cms].[watchlist_titles](
 	[tconst] [char](10) NOT NULL,
 	[sequenceNum] [smallint] NOT NULL,
 	[created] [smalldatetime] NOT NULL,
-	[ownerId] [int] NOT NULL,
+	[userId] [int] NOT NULL,
  CONSTRAINT [PK_watchlist_titles] PRIMARY KEY CLUSTERED 
 (
 	[watchlistId] ASC,
@@ -48,7 +98,7 @@ CREATE TABLE [cms].[watchlist_titles](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [imdb].[artist_category]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [imdb].[artist_category]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -61,7 +111,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [imdb].[name_basics]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [imdb].[name_basics]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -79,7 +129,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [imdb].[title_akas]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [imdb].[title_akas]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -100,7 +150,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [imdb].[title_basics]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [imdb].[title_basics]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -121,7 +171,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [imdb].[title_episode]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [imdb].[title_episode]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +187,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [imdb].[title_genre]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [imdb].[title_genre]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -152,7 +202,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [imdb].[title_principals]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [imdb].[title_principals]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -171,7 +221,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [imdb].[title_ratings]    Script Date: 2/20/2020 09:14:36 PM ******/
+/****** Object:  Table [imdb].[title_ratings]    Script Date: 3/3/2020 12:36:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -186,12 +236,37 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+ALTER TABLE [cms].[user_title_rating]  WITH CHECK ADD  CONSTRAINT [FK_user_titlerating_title_basics] FOREIGN KEY([tconst])
+REFERENCES [imdb].[title_basics] ([tconst])
+GO
+ALTER TABLE [cms].[user_title_rating] CHECK CONSTRAINT [FK_user_titlerating_title_basics]
+GO
+ALTER TABLE [cms].[user_title_rating]  WITH CHECK ADD  CONSTRAINT [FK_user_titlerating_user] FOREIGN KEY([userId])
+REFERENCES [cms].[user] ([userId])
+GO
+ALTER TABLE [cms].[user_title_rating] CHECK CONSTRAINT [FK_user_titlerating_user]
+GO
+ALTER TABLE [cms].[user_watchlists]  WITH CHECK ADD  CONSTRAINT [FK_user_watchlists_permission] FOREIGN KEY([permissionId])
+REFERENCES [cms].[permission] ([permissionId])
+GO
+ALTER TABLE [cms].[user_watchlists] CHECK CONSTRAINT [FK_user_watchlists_permission]
+GO
+ALTER TABLE [cms].[user_watchlists]  WITH CHECK ADD  CONSTRAINT [FK_user_watchlists_user] FOREIGN KEY([userId])
+REFERENCES [cms].[user] ([userId])
+GO
+ALTER TABLE [cms].[user_watchlists] CHECK CONSTRAINT [FK_user_watchlists_user]
+GO
+ALTER TABLE [cms].[user_watchlists]  WITH CHECK ADD  CONSTRAINT [FK_user_watchlists_watchlist] FOREIGN KEY([watchlistId])
+REFERENCES [cms].[watchlist] ([watchlistId])
+GO
+ALTER TABLE [cms].[user_watchlists] CHECK CONSTRAINT [FK_user_watchlists_watchlist]
+GO
 ALTER TABLE [cms].[watchlist_titles]  WITH CHECK ADD  CONSTRAINT [FK_watchlist_titles_title_basics] FOREIGN KEY([tconst])
 REFERENCES [imdb].[title_basics] ([tconst])
 GO
 ALTER TABLE [cms].[watchlist_titles] CHECK CONSTRAINT [FK_watchlist_titles_title_basics]
 GO
-ALTER TABLE [cms].[watchlist_titles]  WITH CHECK ADD  CONSTRAINT [FK_watchlist_titles_user] FOREIGN KEY([ownerId])
+ALTER TABLE [cms].[watchlist_titles]  WITH CHECK ADD  CONSTRAINT [FK_watchlist_titles_user] FOREIGN KEY([userId])
 REFERENCES [cms].[user] ([userId])
 GO
 ALTER TABLE [cms].[watchlist_titles] CHECK CONSTRAINT [FK_watchlist_titles_user]

@@ -10,6 +10,7 @@ namespace MovieCorner.Models
             TitleAkas = new HashSet<TitleAkas>();
             TitleGenre = new HashSet<TitleGenre>();
             TitlePrincipals = new HashSet<TitlePrincipals>();
+            UserTitleRating = new HashSet<UserTitleRating>();
             WatchlistTitles = new HashSet<WatchlistTitles>();
         }
 
@@ -26,6 +27,7 @@ namespace MovieCorner.Models
         public virtual ICollection<TitleAkas> TitleAkas { get; set; }
         public virtual ICollection<TitleGenre> TitleGenre { get; set; }
         public virtual ICollection<TitlePrincipals> TitlePrincipals { get; set; }
+        public virtual ICollection<UserTitleRating> UserTitleRating { get; set; }
         public virtual ICollection<WatchlistTitles> WatchlistTitles { get; set; }
     }
 }
