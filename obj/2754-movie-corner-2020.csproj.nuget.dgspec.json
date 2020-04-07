@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\users\\sd3699dj\\Documents\\movie-corner\\2754-movie-corner-2020.csproj": {}
+    "C:\\Users\\Joshua Seppa\\source\\repos\\2754-movie-corner\\2754-movie-corner-2020.csproj": {}
   },
   "projects": {
-    "E:\\users\\sd3699dj\\Documents\\movie-corner\\2754-movie-corner-2020.csproj": {
+    "C:\\Users\\Joshua Seppa\\source\\repos\\2754-movie-corner\\2754-movie-corner-2020.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\users\\sd3699dj\\Documents\\movie-corner\\2754-movie-corner-2020.csproj",
+        "projectUniqueName": "C:\\Users\\Joshua Seppa\\source\\repos\\2754-movie-corner\\2754-movie-corner-2020.csproj",
         "projectName": "2754-movie-corner-2020",
-        "projectPath": "E:\\users\\sd3699dj\\Documents\\movie-corner\\2754-movie-corner-2020.csproj",
-        "packagesPath": "C:\\Users\\sd3699dj.IT\\.nuget\\packages\\",
-        "outputPath": "E:\\users\\sd3699dj\\Documents\\movie-corner\\obj\\",
+        "projectPath": "C:\\Users\\Joshua Seppa\\source\\repos\\2754-movie-corner\\2754-movie-corner-2020.csproj",
+        "packagesPath": "C:\\Users\\Joshua Seppa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Joshua Seppa\\source\\repos\\2754-movie-corner\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\sd3699dj.IT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Joshua Seppa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -80,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
