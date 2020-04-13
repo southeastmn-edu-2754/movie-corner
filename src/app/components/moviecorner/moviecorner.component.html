@@ -1,0 +1,41 @@
+<mat-card>
+    <mat-card-header>
+        <mat-toolbar>
+            <mat-card-title><h4>Movie Corner: Registration Form</h4></mat-card-title>
+        </mat-toolbar>
+    </mat-card-header>
+
+    <mat-card-content >
+        <form class="form-width">
+            <mat-form-field class="full-width">
+            <input matInput placeholder="User ID" [formControl]="userIdInput" disabled>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="User Name" [formControl]="userNameInput"
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="userNameInput.invalid">Enter item name: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Full Name" [formControl]="fullNameInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="fullNameInput.invalid">Enter item name: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Password" [formControl]="passwordInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="passwordInput.invalid">Enter item name: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Created" [formControl]="createdInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="createdInput.invalid">Enter item name: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        </form>
+
+    </mat-card-content>
+    <mat-card-actions>
+
+    </mat-card-actions>
+
+
+</mat-card>

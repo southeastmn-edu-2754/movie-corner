@@ -19,6 +19,7 @@ import { Mswan3cPeopleService } from './shared/mswan3c-people-service.service';
 // Ex3D
 import {HttpClientModule} from '@angular/common/http';
 import { Ex2aCountryComponent } from './components/ex2a-country/ex2a-country.component';
+import { MoviecornerComponent } from './components/moviecorner/moviecorner.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { Ex2aCountryComponent } from './components/ex2a-country/ex2a-country.com
     HomeComponent,
     NavBarComponent,
     Ex2aCountryComponent,
+    MoviecornerComponent,
   ],
   imports: [
     BrowserModule,
