@@ -21,6 +21,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { Ex2aCountryComponent } from './components/ex2a-country/ex2a-country.component';
 import { MoviecornerComponent } from './components/moviecorner/moviecorner.component';
 
+import { UsersService} from './shared/users.service';
+
 @NgModule({
   declarations: [
     AppComponent,
