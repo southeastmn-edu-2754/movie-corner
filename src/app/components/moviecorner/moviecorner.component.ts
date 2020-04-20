@@ -24,7 +24,7 @@ export class MoviecornerComponent implements OnInit {
  // {"userId":6,"userName":"Mason.Thomas","fullName":"Mason Thomas","password":"","created":"2020-03-08T19:23:00"},
  // {"userId":7,"userName":"Mason.Tdfhfdfdh","fullName":"Mason Thomas","password":"","created":"2020-03-08T19:23:00"}];
 
-public users: any[] = []; 
+public users: User[] = null;
 public index: number = 0;
 public lastIndex:number = 1;
 public creatingNew: boolean = false;
@@ -37,7 +37,7 @@ public creatingNew: boolean = false;
      // this.users = data;
      this.usersService.getUsers().subscribe(data => { 
        this.users = data;
-       this.lastIndex - this.users.length - 1;
+       this.lastIndex = this.users.length - 1;
      this.displayUser();
     });
   }

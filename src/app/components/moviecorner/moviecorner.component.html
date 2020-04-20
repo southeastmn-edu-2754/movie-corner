@@ -5,7 +5,7 @@
         </mat-toolbar>
     </mat-card-header>
 
-    <mat-card-content *ngIf="this.users">
+    <mat-card-content *ngIf="this.users[this.index]">
         <form class="form-width">
             <mat-form-field class="full-width">
             <input matInput placeholder="User ID" [formControl]="userIdInput">

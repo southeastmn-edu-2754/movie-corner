@@ -33,7 +33,6 @@ getUsers(): Observable<User[]> {
   return this.httpClient.get<User[]>('https://localhost:5001/api/user/')
   map(data =>{
     let users : User[] = new Array<User>();
-    
 
     let c = data[0];
     users.push( new User(
@@ -45,7 +44,7 @@ getUsers(): Observable<User[]> {
       c["created"]));
 
       return users;
-    
+  
 });
 }
 
