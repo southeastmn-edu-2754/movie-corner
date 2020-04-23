@@ -46,7 +46,7 @@ namespace _2754_movie_corner_2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser([FromRoute]int id,[FromBody] User user)
         {
             if (id != user.UserId)
             {
@@ -77,15 +77,23 @@ namespace _2754_movie_corner_2020.Controllers
         // POST: api/User
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.User.Add(user);
-            await _context.SaveChangesAsync();
+[HttpPost]
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
-        }
+    public async Task<ActionResult<User>> PostUser([FromBody] User user)
 
+    {
+
+       user.Created = DateTime.Now;
+
+       _context.User.Add(user);
+
+       await _context.SaveChangesAsync();
+
+ 
+
+        return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+
+    }
         // DELETE: api/User/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)
