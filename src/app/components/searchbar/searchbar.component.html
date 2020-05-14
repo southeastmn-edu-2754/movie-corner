@@ -8,26 +8,30 @@
     </mat-card-header>
 
     <mat-card-content>
-        <mat-form-field style="margin-left: 30px; width: 100px; margin-right: 10px;">
-          <mat-label>Search:</mat-label>
-          <select matNativeControl style="width: 100px;">
-            <option value="all">All</option>
-            <option value="movie">Movie Titles</option>
-            <option value="television">TV Episodes</option>
-            <option value="celeb">Celebrities</option>
-            <option value="date">Date</option>
-          </select>
+        <mat-form-field matInput style="margin-left: 30px; width: 100px; margin-right: 10px;">
+            <select matNativeControl style="width: 100px;" [formControl]="searchFilterInput">
+                <option value="all" selected>All</option>
+                <option value="movie">Movie Titles</option>
+                <option value="television">TV Episodes</option>
+                <option value="celeb">Celebrities</option>
+                <option value="date">Date</option>
+            </select>
         </mat-form-field>
-
+        
         <mat-form-field style="width: 400px;">
-            <input type="text" placeholder="Search MovieCorner" style="width: 400px;">   
+            <mat-label>Search MovieCorner</mat-label>
+            <input matInput placeholder="Search MovieCorner" aria-label="MovieCorner" [matAutocomplete]="searchAutocomplete"
+                [formControl]="searchBarCtrl" (click)="$event.target.select()">
+            <mat-autocomplete #searchAutocomplete="matAutocomplete" [displayWith]="displaySearchFn">
+                <mat-option *ngFor="let movie of filteredMovies | async" [value]="movie" (onSelectionChange)="movieSelected($event, movie)">
+                    <span>{{movie.primaryTitle}}</span>
+                </mat-option>
+            </mat-autocomplete>
         </mat-form-field>
 
-        <mat-form-field>
-            <button mat-icon-button>
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
+        <button mat-button (click)="searchButtonClick()">
+            <mat-icon>search</mat-icon>
+        </button>
     </mat-card-content>
 
     <mat-card-actions>

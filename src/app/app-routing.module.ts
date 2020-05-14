@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { Ex2aCountryComponent } from './components/ex2a-country/ex2a-country.component';
+
+// 2754 JoshuaSeppa
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 
 const routes: Routes =  [

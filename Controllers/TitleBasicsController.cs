@@ -28,19 +28,37 @@ namespace _2754_movie_corner_2020.Controllers
             return await _context.TitleBasics.ToListAsync();
         }
 
-        // GET: api/TitleBasics/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TitleBasics>> GetTitleBasics(string id)
+        // GET: api/TitleBasics/{primaryTitle}
+        [HttpGet("{primaryTitle}")]
+        public async Task<IActionResult> GetTitleBasics([FromRoute] string primaryTitle)
         {
-            var titleBasics = await _context.TitleBasics.FindAsync(id);
+            List<TitleBasics> titleBasics = new List<TitleBasics>();
 
-            if (titleBasics == null)
-            {
-                return NotFound();
-            }
+            if (String.IsNullOrEmpty(primaryTitle))
+                titleBasics = await _context.TitleBasics.ToListAsync();
+            else
+                titleBasics = await _context.TitleBasics
+                   .Where(p => p.PrimaryTitle.Contains(primaryTitle))
+                   .OrderBy(p => p.PrimaryTitle)
+                   .Take(10)
+                   .ToListAsync();
 
-            return titleBasics;
+            return Ok(new { titleBasics = titleBasics });    // wrap array in object to prevent JSON hijacking
         }
+
+        // // GET: api/TitleBasics/5
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<TitleBasics>> GetTitleBasicsOnId(string id)
+        // {
+        //     var titleBasics = await _context.TitleBasics.FindAsync(id);
+
+        //     if (titleBasics == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return titleBasics;
+        // }
 
         // PUT: api/TitleBasics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
