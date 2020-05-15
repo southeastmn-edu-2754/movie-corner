@@ -41,6 +41,12 @@ namespace MovieCorner
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

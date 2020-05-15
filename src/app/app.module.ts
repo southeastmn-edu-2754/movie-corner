@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,
           MatCardModule, MatFormFieldModule, MatInputModule,
-          MatDialogModule, MatGridListModule
+          MatDialogModule, MatGridListModule, MatAutocompleteModule
       } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,8 @@ import { Mswan3cPeopleService } from './shared/mswan3c-people-service.service';
 import {HttpClientModule} from '@angular/common/http';
 import { Ex2aCountryComponent } from './components/ex2a-country/ex2a-country.component';
 import { TitleBasicsComponent } from './components/title-basics/title-basics.component';
+import { TitlePrincipalsComponent } from './components/title-principals/title-principals.component';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { TitleBasicsComponent } from './components/title-basics/title-basics.com
     NavBarComponent,
     Ex2aCountryComponent,
     TitleBasicsComponent,
+    TitlePrincipalsComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,7 @@ import { TitleBasicsComponent } from './components/title-basics/title-basics.com
     BrowserAnimationsModule,
     MatToolbarModule, MatIconModule, MatButtonModule, MatCardModule, 
     MatFormFieldModule, MatInputModule, MatMenuModule,
-    MatDialogModule, MatGridListModule,
+    MatDialogModule, MatGridListModule, MatAutocompleteModule,
     HttpClientModule,
   ],
   entryComponents: [
