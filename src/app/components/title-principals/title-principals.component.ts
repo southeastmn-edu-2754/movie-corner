@@ -6,8 +6,6 @@ import { title_principalsService } from 'src/app/shared/title_principals.service
 import { Observable } from 'rxjs';
 import { startWith, distinctUntilChanged, debounceTime, switchMap} from 'rxjs/operators';
 
-interface Filter { value: string; viewValue: string; }
-
 @Component({
   selector: 'app-title-principals',
   templateUrl: './title-principals.component.html',
