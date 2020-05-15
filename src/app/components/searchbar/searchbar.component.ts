@@ -11,9 +11,10 @@ interface Filter { value: string; viewValue: string; }
 
 @Component({ selector: 'app-searchbar', templateUrl: './searchbar.component.html', styleUrls: ['./searchbar.component.css'] })
 export class SearchbarComponent implements OnInit {
-  public searchFilterInput: FormControl = new FormControl();
-  public searchBarInput: FormControl = new FormControl();
+  public filterCtrl: FormControl = new FormControl();
+  public searchBarCtrl: FormControl = new FormControl();
   public filteredMovies: Observable<Movie[]> = null;
+  public selectedMovie: Movie = new Movie("", "", "", 0, 0, null, 0, "")
 
   searchFilter: Filter[] = [
     {value: 'all', viewValue: 'All'},
@@ -25,12 +26,13 @@ export class SearchbarComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
+    private searchBarDialogRef: MatDialogRef<SearchbarComponent>,
     private tvShowService: TvShowService
   ) { }
 
   ngOnInit() {
-    this.filteredMovies = this.searchFilterInput.valueChanges.pipe(
-      startWith(this.searchFilterInput.value),
+    this.filteredMovies = this.searchBarCtrl.valueChanges.pipe(
+      startWith(this.searchBarCtrl.value),
       debounceTime(250),
       distinctUntilChanged(),
       switchMap(val => this.movieService.getMovies(val || 'A'))
@@ -39,6 +41,10 @@ export class SearchbarComponent implements OnInit {
 
   displaySearchFn(movie: Movie): string {
     return movie ? movie.primaryTitle + ' (' + movie.startYear + ')' : '';
+  }
+
+  movieSelected(event: MatOptionSelectionChange, movie: Movie) {
+
   }
 
   searchButtonClick(): void {

@@ -3,7 +3,7 @@ export class Movie {
         public tconst: string,
         public primaryTitle: string,
         public originalTitle: string,
-        public isAdult: boolean,
+        public isAdult: number,
         public startYear: number,
         public endYear: number,
         public runtimeMinutes: number,
