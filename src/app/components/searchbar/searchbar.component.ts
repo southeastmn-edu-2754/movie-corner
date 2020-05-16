@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-// import { MatOptionSelectionChange, MatDialog, MatDialogRef } from '@angular/material';
-import { MatOptionSelectionChange } from '@angular/material';
+import { MatOptionSelectionChange, MatDialog, MatDialogRef } from '@angular/material';
 import { Movie } from 'src/app/shared/movie.model';
 import { Observable } from 'rxjs';
 import { MovieService } from 'src/app/shared/movie.service';
@@ -28,6 +27,7 @@ export class SearchbarComponent implements OnInit {
   constructor(
     private movieService: MovieService,
     // private searchBarDialogRef: MatDialogRef<SearchbarComponent>,
+    private searchBarDialog: MatDialog,
     private tvShowService: TvShowService
   ) { }
 
