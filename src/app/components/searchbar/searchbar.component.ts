@@ -14,7 +14,7 @@ export class SearchbarComponent implements OnInit {
   public filterCtrl: FormControl = new FormControl();
   public searchBarCtrl: FormControl = new FormControl();
   public filteredMovies: Observable<Movie[]> = null;
-  public selectedMovie: Movie = new Movie("", "", "", 0, 0, null, 0, "")
+  public selectedMovie: Movie = new Movie("", "", "", 0, 0, null, 0, "");
 
   searchFilter: Filter[] = [
     {value: 'all', viewValue: 'All'},
@@ -22,11 +22,10 @@ export class SearchbarComponent implements OnInit {
     {value: 'television', viewValue: 'TV Episodes'},
     {value: 'celeb', viewValue: 'Celebrities'},
     {value: 'date', viewValue: 'Date'},
-  ];
+  ]; 
 
   constructor(
     private movieService: MovieService,
-    private searchBarDialogRef: MatDialogRef<SearchbarComponent>,
     private tvShowService: TvShowService
   ) { }
 
