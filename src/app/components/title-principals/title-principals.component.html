@@ -1,11 +1,11 @@
-<mat-card>
+<!-- <mat-card>
     <mat-card-header>
         <mat-toolbar>
             <mat-card-title><h2>Movie Corner: Title Principals</h2></mat-card-title>
         </mat-toolbar>
-    </mat-card-header>
+    </mat-card-header> -->
 
-    <mat-card-content *ngIf="this.selectedPrincipal">
+    <!-- <mat-card-content *ngIf="this.selectedPrincipal">
         <mat-form-field class="full-width">
             <mat-label>Search Title Principals</mat-label>
             <input matInput [matAutocomplete]="auto" 
@@ -15,36 +15,70 @@
                 <span>{{ title_principals.tconst }}, {{ title_principals.ordering }}, {{ title_principals.nconst }}, {{ title_principals.category }}, {{ title_principals.job }}, {{ title_principals.characters }}</span>
               </mat-option>
             </mat-autocomplete>
-        </mat-form-field>
+        </mat-form-field> -->
 
-        <form class="form-width">
-            <mat-form-field class="full-width">
-                <input matInput placeholder="tconst" [formControl]="TconstTitleInput" [(ngModel)]="this.selectedPrincipal.tconst">
-            </mat-form-field>
+        <!-- <form class="form-width">
+            <mat-grid-list cols="6" rowHeight="60px">
+                <mat-grid-tile colspan="1">
+                    <button></button>
+                </mat-grid-tile>
+                    <mat-grid-tile colspawn=""> -->
 
-            <mat-form-field class="full-width">
-                <input matInput placeholder="ordering" [formControl]="OrderingInput" [(ngModel)]="this.selectedPrincipal.ordering">
-            </mat-form-field>
+                        <!-- <mat-form-field class="full-width">
+                            <input matInput placeholder="tconst" [formControl]="TconstTitleInput" [(ngModel)]="this.Title_Principals.tconst">
+                        </mat-form-field> -->
 
-            <mat-form-field class="full-width">
-                <input matInput placeholder="nconst" [formControl]="NconstTitleInput" [(ngModel)]="this.selectedPrincipal.nconst">
-            </mat-form-field>
+                        <!-- <mat-form-field class="full-width">
+                            <input matInput placeholder="ordering" [formControl]="OrderingInput" [(ngModel)]="this.selectedPrincipal.ordering">
+                        </mat-form-field>
 
-            <mat-form-field class="full-width">
-                <input matInput placeholder="category" [formControl]="CategoryTitleInput" [(ngModel)]="this.selectedPrincipal.category" 
-                required minlength="1" maxlength="40">
-            </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="nconst" [formControl]="NconstTitleInput" [(ngModel)]="this.selectedPrincipal.nconst">
+                        </mat-form-field>
 
-            <mat-form-field class="full-width">
-                <input matInput placeholder="job" [formControl]="JobInput" [(ngModel)]="this.selectedPrincipal.job"
-                required minlength="1" maxlength="40">
-            </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="category" [formControl]="CategoryTitleInput" [(ngModel)]="this.selectedPrincipal.category" 
+                            required minlength="1" maxlength="40">
+                        </mat-form-field>
 
-            <mat-form-field class="full-width">
-                <input matInput placeholder="character" [formControl]="CharactersInput" [(ngModel)]="this.selectedPrincipal.characters"
-                required minlength="1" maxlength="40">
-            </mat-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="job" [formControl]="JobInput" [(ngModel)]="this.selectedPrincipal.job"
+                            required minlength="1" maxlength="40">
+                        </mat-form-field> -->
 
-    </form>
-</mat-card-content>
-</mat-card>
+                        <!-- <mat-form-field class="full-width">
+                            <input matInput placeholder="character" [formControl]="CharactersInput" [(ngModel)]="this.selectedPrincipal.characters"
+                            required minlength="1" maxlength="40">
+                        </mat-form-field> -->
+
+                    <!-- </mat-grid-tile>
+                        <mat-grid-tile colspan="1">
+                            <mat-form-field class="full-width">
+                                <input matInput placeholder="tconst" [formControl]="TconstTitleInput" [(ngModel)]="this.Title_Principals.tconst">
+                            </mat-form-field>
+                        </mat-grid-tile>
+
+                        <mat-grid-tile colspan="1">
+                            <mat-form-field class="full-width">
+                                <input matInput placeholder="nconst" [formControl]="NconstTitleInput" [(ngModel)]="this.Title_Principals.nconst">
+                            </mat-form-field>
+                        </mat-grid-tile> -->
+
+                        <!-- <mat-grid-tile colspan="3">
+                            <mat-form-field class="full-width">
+                                <input matInput placeholder="character" [formControl]="CharactersInput" [(ngModel)]="this.Title_Principals.characters"
+                                required minlength="1" maxlength="40">
+                            </mat-form-field>
+                        </mat-grid-tile> -->
+
+            <!-- </mat-grid-list>
+        </form> -->
+
+        <div *ngIf="this.titlebasics">
+            <app-title-basics
+            *ngFor="let Title_Basics of this.titlebasics"
+            [Title_Basics]="Title_Basics"></app-title-basics>
+        </div>
+
+<!-- </mat-card-content> -->
+<!-- </mat-card> -->

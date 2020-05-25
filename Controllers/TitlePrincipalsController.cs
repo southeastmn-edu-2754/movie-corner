@@ -28,34 +28,53 @@ namespace _2754_movie_corner_2020.Controllers
             return await _context.TitlePrincipals.ToListAsync();
         }
 
-        // GET: api/TitlePrincipals/tconst
-        [HttpGet("{tconst}")]
-        public async Task<IActionResult> GetTitlePrincipals([FromRoute] string tconst)
+        [HttpGet("{nconst}")]
+        public async Task<IActionResult> GetTitlePrincipals([FromRoute] string nconst)
         {
             List<TitlePrincipals> titlePrincipals = new List<TitlePrincipals>();
-            if (String.IsNullOrEmpty(tconst))
-                titlePrincipals = await _context.TitlePrincipals.ToListAsync();
+            if (String.IsNullOrEmpty(nconst))
+                return NotFound();
             else
                 // titlePrincipals = await _context.TitlePrincipals.Where(c => c.Nconst == nconst).ToListAsync();
                 titlePrincipals = await _context.TitlePrincipals
-                    .Where(t => t.Tconst.Contains(tconst))
-                    .OrderBy(t => t.Tconst)
-                    .Take(5)
+                    .Where(n => n.Nconst == nconst)
+                    .OrderBy(n => n.Nconst)
                     .ToListAsync();
 
             return Ok(new {titlePrincipals = titlePrincipals});
         }
 
+        // GET: api/TitlePrincipals/id
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetTitlePrincipals([FromRoute] string id)
+        // {
+        //     List<TitlePrincipals> titlePrincipals = new List<TitlePrincipals>();
+        //     if (String.IsNullOrEmpty(id))
+        //         titlePrincipals = await _context.TitlePrincipals.ToListAsync();
+        //     else
+        //         // titlePrincipals = await _context.TitlePrincipals.Where(c => c.Nconst == nconst).ToListAsync();
+        //         titlePrincipals = await _context.TitlePrincipals
+        //             .Where(t => t.Tconst.Contains(id))
+        //             .OrderBy(t => t.Tconst)
+        //             .Take(5)
+        //             .ToListAsync();
+
+        //     return Ok(new {titlePrincipals = titlePrincipals});
+        // }
+
         // GET: api/TitlePrincipals/5
 
         // [HttpGet("{id}")]
-        // public async Task<ActionResult<TitlePrincipals>> GetTitlePrincipals(string id, string id2)
+        // public async Task<ActionResult<TitlePrincipals>> GetTitlePrincipals(string id)
         // {
-        //     var titlePrincipals = await _context.TitlePrincipals.FindAsync(id, id2);
+        //     var titlePrincipals = await _context.TitlePrincipals.FindAsync(id);
 
         //     if (titlePrincipals == null)
         //     {
         //         return NotFound();
+        //     }
+        //     else{
+
         //     }
 
         //     return titlePrincipals;

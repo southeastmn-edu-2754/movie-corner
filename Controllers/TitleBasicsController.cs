@@ -28,19 +28,36 @@ namespace _2754_movie_corner_2020.Controllers
             return await _context.TitleBasics.ToListAsync();
         }
 
-        // GET: api/TitleBasics/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TitleBasics>> GetTitleBasics(string id)
+        // GET: api/TitlePrincipals/primaryTitle
+        [HttpGet("{tconst}")]
+        public async Task<IActionResult> GetTitleBasics([FromRoute] string tconst)
         {
-            var titleBasics = await _context.TitleBasics.FindAsync(id);
-
-            if (titleBasics == null)
-            {
+            List<TitleBasics> titleBasics = new List<TitleBasics>();
+            if (String.IsNullOrEmpty(tconst))
                 return NotFound();
-            }
+                // titleBasics = await _context.TitleBasics.ToListAsync();
+            else
+                titleBasics = await _context.TitleBasics
+                    .Where(t => t.Tconst.Contains(tconst))
+                    .OrderBy(t => t.Tconst)
+                    .ToListAsync();
 
-            return titleBasics;
+            return Ok(new {titleBasics = titleBasics});
         }
+
+        // GET: api/TitleBasics/5
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<TitleBasics>> GetTitleBasics(string id)
+        // {
+        //     var titleBasics = await _context.TitleBasics.FindAsync(id);
+
+        //     if (titleBasics == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return titleBasics;
+        // }
 
         // PUT: api/TitleBasics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for

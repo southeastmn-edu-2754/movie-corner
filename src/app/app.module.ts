@@ -21,6 +21,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { Ex2aCountryComponent } from './components/ex2a-country/ex2a-country.component';
 import { TitleBasicsComponent } from './components/title-basics/title-basics.component';
 import { TitlePrincipalsComponent } from './components/title-principals/title-principals.component';
+import { NameBasicsComponent } from './components/name-basics/name-basics.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { TitlePrincipalsComponent } from './components/title-principals/title-pr
     Ex2aCountryComponent,
     TitleBasicsComponent,
     TitlePrincipalsComponent,
+    NameBasicsComponent,
     
   ],
   imports: [

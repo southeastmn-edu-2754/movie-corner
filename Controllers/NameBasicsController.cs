@@ -28,19 +28,37 @@ namespace _2754_movie_corner_2020.Controllers
             return await _context.NameBasics.ToListAsync();
         }
 
-        // GET: api/NameBasics/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<NameBasics>> GetNameBasics(string id)
+        // GET: api/TitlePrincipals/primaryName
+        [HttpGet("{primaryName}")]
+        public async Task<IActionResult> GetNameBasics([FromRoute] string primaryName)
         {
-            var nameBasics = await _context.NameBasics.FindAsync(id);
+            List<NameBasics> nameBasics = new List<NameBasics>();
+            if (String.IsNullOrEmpty(primaryName))
+                nameBasics = await _context.NameBasics.ToListAsync();
+            else
+                nameBasics = await _context.NameBasics
+                    .Where(p => p.PrimaryName.Contains(primaryName))
+                    .OrderBy(p => p.PrimaryName)
+                    .Take(5)
+                    .ToListAsync();
 
-            if (nameBasics == null)
-            {
-                return NotFound();
-            }
-
-            return nameBasics;
+            return Ok(new {nameBasics = nameBasics});
         }
+
+
+        // // GET: api/NameBasics/5
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<NameBasics>> GetNameBasics(string id)
+        // {
+        //     var nameBasics = await _context.NameBasics.FindAsync(id);
+
+        //     if (nameBasics == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return nameBasics;
+        // }
 
         // PUT: api/NameBasics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for

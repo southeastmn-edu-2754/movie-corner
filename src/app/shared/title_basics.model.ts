@@ -1,7 +1,7 @@
 
 export class Title_Basics {
     constructor(
-        public tconst: number,
+        public tconst: string,
         public titleType: string,
         public primaryTitle: string,
         public originalTitle: string,
@@ -11,17 +11,5 @@ export class Title_Basics {
         public runtimeMinutes: number,
         public genres: string,
 ){}
-    }
-export interface Title_BasicsIface {
-
-    tconst: number,
-    titleType: string,
-    primaryTitle: string,
-    originalTitle: string,
-    isAudit: number,
-    startYear: number,
-    endYear: number,
-    runtimeMinutes: number,
-    genres: string,
-
 }
+
