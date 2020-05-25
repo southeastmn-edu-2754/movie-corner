@@ -1,64 +1,7 @@
-<!-- <mat-card>
-    <mat-card-header>
-        <mat-toolbar>
-            <mat-card-title><h2>Movie Corner: Title Basics</h2></mat-card-title>
-        </mat-toolbar>
-    </mat-card-header> -->
-
-    <!-- <mat-card-content *ngIf="this.titlebasics" > -->
-
-        <form class="form-width">
-            <mat-grid-list cols="6" rowHeight="60px">
-                <!-- <mat-grid-tile colspan="1">
-                    <button>X</button>
-                </mat-grid-tile> -->
-                <mat-grid-tile colspan="4">
-                    <!-- <mat-form-field class="full-width">
-                        <input matInput placeholder="Tconst" [formControl]="TconstIdInput" [(ngModel)] ="this.selectedTitle.tconst">
-                    </mat-form-field>
-
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Title Type" [formControl]="TitleTypeInput" [(ngModel)] ="this.selectedTitle.titleType"> 
-                    </mat-form-field> -->
-
-                    <!-- <mat-form-field class="full-width">
-                        <input matInput placeholder="Movie Title" [formControl]="PrimaryTitleInput" [(ngModel)] ="this.Title_Basics.primaryTitle">
-                    </mat-form-field> -->
-
-                    <button mat-button class="full-width" style="text-align: left"> {{ this.Title_Basics.primaryTitle }} </button>
-
-                    <!-- <mat-form-field class="full-width">
-                        <input matInput placeholder="Original Title" [formControl]="OriginalTitleInput" [(ngModel)] ="this.Title_Basics.originalTitle">
-                    </mat-form-field> -->
-
-                    <!-- <mat-form-field class="full-width">
-                        <input matInput placeholder="isAudit" [formControl]="IsAuditInput" [(ngModel)] ="this.selectedTitle.isAudit">
-                    </mat-form-field>
-
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Start Year" [formControl]="StartYearInput" [(ngModel)] ="this.selectedTitle.startYear">
-                    </mat-form-field>
-
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="End Year" [formControl]="EndYearInput" [(ngModel)] ="this.selectedTitle.endYear">
-                    </mat-form-field>
-
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Run Time" [formControl]="RunTimeInput" [(ngModel)] ="this.selectedTitle.runtimeMinutes">
-                    </mat-form-field>
-
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Genre" [formControl]="GenreInput" [(ngModel)] ="this.selectedTitle.genres">
-                    </mat-form-field> -->
-                </mat-grid-tile>
-            </mat-grid-list>
-        </form>
-        
-<!-- </mat-card-content> -->
-
-    <!-- <mat-card-actions>
-        <button mat-button (click)="getPreviousButtonClick()" [disabled]="this.index == 0"><mat-icon>arrow_back</mat-icon></button>
-        <button mat-button (click)="getNextButtonClick()" [disabled]="this.index == this.lastIndex"><mat-icon>arrow_forward</mat-icon></button>
-    </mat-card-actions> -->
-
-<!-- </mat-card> -->
+<form class="form-width">
+    <mat-grid-list cols="6" rowHeight="60px">
+        <mat-grid-tile colspan="4">
+            <button mat-button class="full-width" style="text-align: left"> {{ this.Title_Basics.primaryTitle }} </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

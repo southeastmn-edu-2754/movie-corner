@@ -23,7 +23,7 @@ export class titlebasicsService {
         this.title_basics = new Array<Title_Basics>();
         for (var i in data.titleBasics){
           let c = data.titleBasics[i];
-          //console.log(c);
+          console.log(c);
           this.title_basics.push( new Title_Basics(
             c["tconst"], 
             c["titleType"], 

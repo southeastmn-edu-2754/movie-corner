@@ -20,17 +20,16 @@ export class NameBasicsComponent implements OnInit {
 
 
   public filtered: FormControl = new FormControl();
-  // public NconstNameInput = new FormControl({value: '', disabled: true});
+  public NconstNameInput = new FormControl({value: '', disabled: true});
   public PrimaryNameInput = new FormControl();
   public BirthYearInput = new FormControl();
   public DeathYearInput = new FormControl();
   public PrimaryProfessionInput = new FormControl();
-  // public KnownForTitlesInput = new FormControl('', [Validators.required]);
+  public KnownForTitlesInput = new FormControl('', [Validators.required]);
 
   public selectedName: Name_Basics = new Name_Basics("","",0,0,"","");
   public filteredName: Observable<Name_Basics[]> = null;
   public titleprincipals: Title_Principals[] = new Array<Title_Principals>();
-  // public title_basics: Title_Basics[] = new Array<Title_Basics>();
 
   constructor(private namebasicsService: namebasicsService, 
     private titleprincipalsService: title_principalsService,

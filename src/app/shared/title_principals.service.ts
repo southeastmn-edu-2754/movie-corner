@@ -31,18 +31,6 @@ export class title_principalsService {
         c["category"], 
         c["job"], 
         c["characters"],
-        // null, null
-        // c["tconstNavigation"]
-        // new Title_Basics(
-        //   t["tconst"], 
-        //   t["titleType"], 
-        //   t["primaryTitle"], 
-        //   t["originalTitle"], 
-        //   t["isAudit"],
-        //   t["startYear"],
-        //   t["endYear"],
-        //   t["runtimeMinutes"],
-        //   t["genres"])
         ));
         }
         return this.title_principals;

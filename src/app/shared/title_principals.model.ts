@@ -1,6 +1,3 @@
-import { Title_Basics  } from './title_basics.model';
-import { Name_Basics } from './namebasics.model';
-
 export class Title_Principals {
     constructor(
         public tconst: string,
@@ -9,8 +6,7 @@ export class Title_Principals {
         public category: string,
         public job: string,
         public characters: string,
-        // public nconstNavigation: Name_Basics,
-        // public tconstNavigation: Title_Basics,
+
 ){}
     }
 
