@@ -5,8 +5,9 @@ import { Title_Principals } from 'src/app/shared/title_principals.model';
 import { title_principalsService } from 'src/app/shared/title_principals.service';
 import { Title_Basics} from 'src/app/shared/title_basics.model';
 import { titlebasicsService } from 'src/app/shared/titlebasics.service';
-import { Observable } from 'rxjs';
-import { startWith, distinctUntilChanged, debounceTime, switchMap} from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { startWith, distinctUntilChanged, debounceTime, switchMap, catchError} from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-title-principals',
@@ -23,10 +24,20 @@ export class TitlePrincipalsComponent implements OnInit {
 
   ngOnInit(){
 
-    this.titlebasicsService.getTitles(this.Title_Principals.tconst).subscribe(data =>{
+    this.titlebasicsService.getTitles(this.Title_Principals.tconst).pipe(catchError(this.handleError)).subscribe(data =>{
       this.titlebasics = data;
       console.log(this.titlebasics);
     })
 
   }
+
+  handleError(err){
+    if(err instanceof HttpErrorResponse){
+      console.log("Serverside Error");
+    } else {
+      console.log("Client side Error");
+    }
+    return throwError(err);
+  }
+
 }
