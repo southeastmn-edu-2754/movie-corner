@@ -1,11 +1,11 @@
-<mat-card>
+<mat-card class="balz">
     <mat-card-header>
-        <mat-toolbar>
-            <mat-card-title><h4>Movie Corner: Registration Form</h4></mat-card-title>
+        <mat-toolbar class="zalz">
+            <mat-card-title class="zalz"><h4>Movie Corner: Registration Form</h4></mat-card-title>
         </mat-toolbar>
     </mat-card-header>
 
-    <mat-card-content *ngIf="this.users[this.index]">
+    <mat-card-content  *ngIf="this.users[this.index]">
         <form class="form-width">
             <mat-form-field class="full-width">
             <input matInput placeholder="User ID" [formControl]="userIdInput">
@@ -13,17 +13,17 @@
         <mat-form-field class="full-width">
             <input matInput placeholder="User Name" [formControl]="userNameInput"
             required minlength="3" maxlength="40">
-            <mat-error *ngIf="userNameInput.invalid">Enter item name: 3 - 40 characters</mat-error>
+            <mat-error *ngIf="userNameInput.invalid">Enter User name: 3 - 40 characters</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <input matInput placeholder="Full Name" [formControl]="fullNameInput" 
             required minlength="3" maxlength="40">
-            <mat-error *ngIf="fullNameInput.invalid">Enter item name: 3 - 40 characters</mat-error>
+            <mat-error *ngIf="fullNameInput.invalid">Enter Full name: 3 - 40 characters</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <input matInput placeholder="Password" [formControl]="passwordInput" 
             required minlength="3" maxlength="40">
-            <mat-error *ngIf="passwordInput.invalid">Enter item name: 3 - 40 characters</mat-error>
+            <mat-error *ngIf="passwordInput.invalid">Enter Password: 3 - 40 characters</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <input matInput placeholder="Created" [formControl]="createdInput" 
@@ -34,9 +34,12 @@
 
     </mat-card-content>
     <mat-card-actions>
-        <button mat-button (click)="getPreviousButtonClick()" [disabled]="this.index == 0"><mat-icon>arrow_back</mat-icon></button>
-        <button mat-button (click)="getNextButtonClick()" [disabled]="this.index == this.lastIndex"><mat-icon>arrow_forward</mat-icon></button>
-        <button mat-button (click)="newButtonClick()"><mat-icon>save</mat-icon></button>
+        <button mat-button (click)="getPreviousButtonClick()" [disabled]="this.index == 0 || this.creatingNew"><mat-icon>arrow_back</mat-icon></button>
+        <button mat-button (click)="getNextButtonClick()" [disabled]="this.index == this.lastIndex || this.creatingNew"><mat-icon>arrow_forward</mat-icon></button>
+        <button mat-button (click)="createNewButtonClick()" [disabled]="this.creatingNew" ><mat-icon>add</mat-icon>Register</button>
+        <button mat-button (click)="saveButtonClick()"><mat-icon>done</mat-icon>Submit</button>
+        <button mat-button (click)="cancelButtonClick()"[disabled]="!this.creatingNew"><mat-icon>cancel</mat-icon>Cancel</button>
+        <button mat-button (click)="deleteButtonClick()"[disabled]="this.creatingNew"><mat-icon>delete</mat-icon>Delete</button>
     </mat-card-actions>
 
 

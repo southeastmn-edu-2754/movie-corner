@@ -50,9 +50,46 @@ getUsers(): Observable<User[]> {
 
 
 
-newUser(){
- let user2 = {"userId":34,"userName":"Ummer.Siddique","fullName":"Ummer Siddique","password":"12345","created":"2020-04-17T19:23:00"};
- return this.httpClient.post(this.movieApiUrl, user2);
+newUser(user: User): Observable<User>{
+ //let user2 = {"userName":"Ummer.Siddique","fullName":"Ummer Siddique","password":"12345","created":"2020-04-17T19:23:00"};
+ let strUser: string = JSON.stringify(user);
+ let regex = /"userId":\d+,/;
+ strUser = strUser.replace(regex, "");
+ let jsonUser = JSON.parse(strUser);
+ return this.httpClient.post(this.movieApiUrl, jsonUser)
+  .pipe(map(data => {
+    var user: User = new User(
+      data["userId"], 
+      data["userName"], 
+      data["fullName"], 
+      data["password"], 
+      data["created"]);
+
+      console.log(user);
+      return user;
+}));
+}
+
+deleteCountry(userId: number): Observable<User> {
+  return this.httpClient.delete(this.movieApiUrl + userId.toString())
+    .pipe(map(data => {
+        var user: User = new User(
+          data["userId"], 
+          data["userName"], 
+          data["fullName"], 
+          data["password"], 
+          data["created"]);
+
+          console.log(user);
+          return user;
+        }));
 
 }
+
+updateUser(user: User) {
+  let strUser: string = JSON.stringify(user);
+  let jsonUser= JSON.parse(strUser);
+  return this.httpClient.put(this.movieApiUrl + user.userId, jsonUser);
+}
+
 }

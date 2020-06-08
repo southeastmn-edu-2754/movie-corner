@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,
           MatCardModule, MatFormFieldModule, MatInputModule,
-          MatDialogModule, MatGridListModule
+          MatDialogModule, MatGridListModule, MatSelectModule, MatSnackBarModule
       } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +38,7 @@ import { UsersService} from './shared/users.service';
     BrowserAnimationsModule,
     MatToolbarModule, MatIconModule, MatButtonModule, MatCardModule, 
     MatFormFieldModule, MatInputModule, MatMenuModule,
-    MatDialogModule, MatGridListModule,
+    MatDialogModule, MatGridListModule,MatSelectModule, MatSnackBarModule,
     HttpClientModule,
   ],
   entryComponents: [

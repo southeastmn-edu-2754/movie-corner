@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import {FormControl, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {DataSource} from '@angular/cdk/collections';
@@ -29,7 +29,8 @@ public index: number = 0;
 public lastIndex:number = 1;
 public creatingNew: boolean = false;
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     //this.usersService.getUser(1).subscribe(data => {
@@ -92,16 +93,69 @@ public creatingNew: boolean = false;
 //         this.displayUser();
 //       });
 //       }
-    
-      newButtonClick() {
 
-         this.usersService.newUser().subscribe(
-           response => console.log(response),
+createNewButtonClick() {
+  let u: User = this.users[this.index];
+  this.users.push(new User(0,"","","", new Date()));
+  this.index = this.users.length -1;
+  this.lastIndex = this.users.length -1;
+  this.creatingNew = true;
+  this.displayUser();
+}
+    
+      saveButtonClick() {
+        if(this.creatingNew){
+        this.updateUserFromForm();
+         this.usersService.newUser(this.users[this.index]).subscribe(
+           response => {
+             //console.log(response);
+             this.users[this.index] = response;
+             this.displayUser();
+             this.creatingNew = false;
+             this.snackBar.open(this.users[this.index].userName, "Saved", {duration: 2000,});
+            },
           error => console.log(error)
          );
-        
+          }
+          else {
+            this.updateUserFromForm();
+            this.usersService.updateUser(this.users[this.index]).subscribe(
+              response => {
+                console.log(response)
+                this.snackBar.open(this.users[this.index].userName, "Saved", {duration: 2000,});
+              },
+              error => console.log(error)
+            );
+
+            
+          }
        }
 
+       cancelButtonClick() {
+         let i: number = this.index;
+         this.index--;
+         this.users.splice(i, 1);
+         this.lastIndex = this.users.length -1;
+         this.creatingNew = false;
+         this.displayUser();
+       }
 
-  }
+       deleteButtonClick() {
+         this.usersService.deleteCountry(this.users[this.index].userId).subscribe(
+          response => {
+            let i: number = this.index;
+            this.index--;
+            this.users.splice(i, 1);
+            this.lastIndex = this.users.length - 1;
+            this.displayUser();
+            this.users[this.index] = response;
+            this.snackBar.open(this.users[this.index].userName, "Deleted", {duration: 2000,});
+          
+          },
+          error => console.log(error)
+        );
+
+           }
+       }
+
   
