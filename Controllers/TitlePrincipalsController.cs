@@ -28,19 +28,57 @@ namespace _2754_movie_corner_2020.Controllers
             return await _context.TitlePrincipals.ToListAsync();
         }
 
-        // GET: api/TitlePrincipals/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TitlePrincipals>> GetTitlePrincipals(string id)
+        [HttpGet("{nconst}")]
+        public async Task<IActionResult> GetTitlePrincipals([FromRoute] string nconst)
         {
-            var titlePrincipals = await _context.TitlePrincipals.FindAsync(id);
-
-            if (titlePrincipals == null)
-            {
+            List<TitlePrincipals> titlePrincipals = new List<TitlePrincipals>();
+            if (String.IsNullOrEmpty(nconst))
                 return NotFound();
-            }
+            else
+                // titlePrincipals = await _context.TitlePrincipals.Where(c => c.Nconst == nconst).ToListAsync();
+                titlePrincipals = await _context.TitlePrincipals
+                    .Where(n => n.Nconst == nconst)
+                    .OrderBy(n => n.Nconst)
+                    .ToListAsync();
 
-            return titlePrincipals;
+            return Ok(new {titlePrincipals = titlePrincipals});
         }
+
+        // GET: api/TitlePrincipals/id
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetTitlePrincipals([FromRoute] string id)
+        // {
+        //     List<TitlePrincipals> titlePrincipals = new List<TitlePrincipals>();
+        //     if (String.IsNullOrEmpty(id))
+        //         titlePrincipals = await _context.TitlePrincipals.ToListAsync();
+        //     else
+        //         // titlePrincipals = await _context.TitlePrincipals.Where(c => c.Nconst == nconst).ToListAsync();
+        //         titlePrincipals = await _context.TitlePrincipals
+        //             .Where(t => t.Tconst.Contains(id))
+        //             .OrderBy(t => t.Tconst)
+        //             .Take(5)
+        //             .ToListAsync();
+
+        //     return Ok(new {titlePrincipals = titlePrincipals});
+        // }
+
+        // GET: api/TitlePrincipals/5
+
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<TitlePrincipals>> GetTitlePrincipals(string id)
+        // {
+        //     var titlePrincipals = await _context.TitlePrincipals.FindAsync(id);
+
+        //     if (titlePrincipals == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     else{
+
+        //     }
+
+        //     return titlePrincipals;
+        // }
 
         // PUT: api/TitlePrincipals/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for

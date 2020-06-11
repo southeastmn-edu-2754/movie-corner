@@ -1,0 +1,57 @@
+<mat-card>
+    <mat-card-header>
+        <mat-toolbar>
+            <mat-card-title><h2>Movie Corner: Name Basics</h2></mat-card-title>
+        </mat-toolbar>
+    </mat-card-header>
+
+
+    <mat-card-content *ngIf="this.selectedName">
+        <mat-form-field class="form-width">
+            <mat-label>Search Actor Name</mat-label>
+            <input matInput [matAutocomplete]="auto" 
+            [formControl]="filtered" (click)="$event.target.select()">  
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTitleFn">
+                <mat-option *ngFor="let namebasics of filteredName | async" [value]="namebasics" (onSelectionChange)="namebasicsSelected($event, namebasics)">
+                <span>{{ namebasics.primaryName }}, {{ namebasics.birthYear }}, {{ namebasics.deathYear }}, {{ namebasics.primaryProfession }}</span>
+              </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <form class="form-width">
+
+            <!-- <mat-form-field class="full-width">
+                <input matInput placeholder="nconst" [formControl]="NconstNameInput" [(ngModel)]="this.selectedName.nconst">
+            </mat-form-field> -->
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Name" [formControl]="PrimaryNameInput" [(ngModel)]="this.selectedName.primaryName">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Birth Year" [formControl]="BirthYearInput" [(ngModel)]="this.selectedName.birthYear">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Death Year" [formControl]="DeathYearInput" [(ngModel)]="this.selectedName.deathYear">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Profession" [formControl]="PrimaryProfessionInput" [(ngModel)]="this.selectedName.primaryProfession">
+            </mat-form-field>
+
+            <!-- <mat-form-field class="full-width">
+                <input matInput placeholder="knownForTitles" [formControl]="KnownForTitlesInput" [(ngModel)]="this.selectedName.knownForTitles"
+                required minlength="1" maxlength="40">
+            </mat-form-field> -->
+
+    </form>
+
+    <div *ngIf="this.titleprincipals">
+        <app-title-principals
+        *ngFor="let Title_Principals of this.titleprincipals"
+        [Title_Principals]="Title_Principals"></app-title-principals>
+    </div>
+    
+</mat-card-content>
+</mat-card>

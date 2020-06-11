@@ -26,6 +26,10 @@ import { UsersService} from './shared/users.service';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { TvShowService } from './shared/tv-show.service';
 import { MovieService } from './shared/movie.service';
+import { TitleBasicsComponent } from './components/title-basics/title-basics.component';
+import { TitlePrincipalsComponent } from './components/title-principals/title-principals.component';
+import { NameBasicsComponent } from './components/name-basics/name-basics.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +38,10 @@ import { MovieService } from './shared/movie.service';
     NavBarComponent,
     Ex2aCountryComponent,
     SearchbarComponent,
-    MoviecornerComponent
+    MoviecornerComponent,
+    TitleBasicsComponent,
+    TitlePrincipalsComponent,
+    NameBasicsComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,

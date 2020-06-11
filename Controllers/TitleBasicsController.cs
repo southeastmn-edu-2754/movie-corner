@@ -60,6 +60,20 @@ namespace _2754_movie_corner_2020.Controllers
         //     return titleBasics;
         // }
 
+        // GET: api/TitleBasics/5
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<TitleBasics>> GetTitleBasics(string id)
+        // {
+        //     var titleBasics = await _context.TitleBasics.FindAsync(id);
+
+        //     if (titleBasics == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return titleBasics;
+        // }
+
         // PUT: api/TitleBasics/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

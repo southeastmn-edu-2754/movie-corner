@@ -7,6 +7,9 @@ import { MoviecornerComponent } from './components/moviecorner/moviecorner.compo
 
 // 2754 JoshuaSeppa
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { TitleBasicsComponent } from './components/title-basics/title-basics.component';
+import { TitlePrincipalsComponent } from './components/title-principals/title-principals.component';
+import { NameBasicsComponent } from './components/name-basics/name-basics.component';
 
 const routes: Routes =  [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -14,6 +17,9 @@ const routes: Routes =  [
     { path: 'ex2a1', component: Ex2aCountryComponent},
     { path: 'searchbar', component: SearchbarComponent},
     { path: 'moviecorner', component: MoviecornerComponent },
+    { path: 'titlebasics', component: TitleBasicsComponent},
+    { path: 'titleprincipals', component: TitlePrincipalsComponent},
+    { path: 'namebasics', component: NameBasicsComponent},
     { path: '**', redirectTo: 'home' }
 ];
 
