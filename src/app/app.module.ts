@@ -18,6 +18,9 @@ import { Mswan3cPeopleService } from './shared/mswan3c-people-service.service';
 
 import { HttpClientModule } from '@angular/common/http';
 import { Ex2aCountryComponent } from './components/ex2a-country/ex2a-country.component';
+import { MoviecornerComponent } from './components/moviecorner/moviecorner.component';
+
+import { UsersService} from './shared/users.service';
 
 // 2754 JoshuaSeppa
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
@@ -31,6 +34,7 @@ import { MovieService } from './shared/movie.service';
     NavBarComponent,
     Ex2aCountryComponent,
     SearchbarComponent,
+    MoviecornerComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
