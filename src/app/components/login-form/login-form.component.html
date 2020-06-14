@@ -1,0 +1,38 @@
+<mat-card class="balz">
+    <mat-card-header>
+        <mat-toolbar class="zalz">
+            <mat-card-title class="zalz"><h4>Movie Corner: Log-in Form</h4></mat-card-title>
+        </mat-toolbar>
+    </mat-card-header>
+
+    <mat-card-content >
+        <form class="form-width">
+
+        <mat-form-field class="full-width">
+            <input matInput placeholder="User Name" [formControl]="userName"
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="userName.invalid">Enter User name: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Password" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="password.invalid">Enter Password: 3 - 40 characters</mat-error>
+        </mat-form-field>
+
+        <li>
+            <a routerLink="/registrationform">
+            New User? Click Here to Register
+            </a>
+          </li>
+        </form>
+
+    </mat-card-content>
+    <mat-card-actions>
+
+        <button mat-stroked-button (click)="openSnackBar(userName.value, 'Successful')">Submit</button>
+
+    </mat-card-actions>
+
+
+
+</mat-card>

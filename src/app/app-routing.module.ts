@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { Ex2aCountryComponent } from './components/ex2a-country/ex2a-country.component';
 import { MoviecornerComponent } from './components/moviecorner/moviecorner.component';
+import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 // 2754 JoshuaSeppa
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
@@ -20,6 +22,8 @@ const routes: Routes =  [
     { path: 'titlebasics', component: TitleBasicsComponent},
     { path: 'titleprincipals', component: TitlePrincipalsComponent},
     { path: 'namebasics', component: NameBasicsComponent},
+    { path: 'registrationform', component: RegistrationFormComponent},
+    { path: 'loginform', component: LoginFormComponent},
     { path: '**', redirectTo: 'home' }
 ];
 

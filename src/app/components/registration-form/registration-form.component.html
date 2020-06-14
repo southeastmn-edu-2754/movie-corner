@@ -1,0 +1,37 @@
+<mat-card class="balz">
+    <mat-card-header>
+        <mat-toolbar class="zalz">
+            <mat-card-title class="zalz"><h4>Movie Corner: Registration Form</h4></mat-card-title>
+        </mat-toolbar>
+    </mat-card-header>
+
+    <mat-card-content  *ngIf="this.users[this.index]">
+        <form class="form-width">
+
+        <mat-form-field class="full-width">
+            <input matInput placeholder="User Name" [formControl]="userNameInput"
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="userNameInput.invalid">Enter User name: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Full Name" [formControl]="fullNameInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="fullNameInput.invalid">Enter Full name: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Password" [formControl]="passwordInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="passwordInput.invalid">Enter Password: 3 - 40 characters</mat-error>
+        </mat-form-field>
+
+        </form>
+
+    </mat-card-content>
+    <mat-card-actions>
+
+        <button mat-button (click)="saveButtonClick()"><mat-icon>done</mat-icon>Submit</button>
+        <button mat-button (click)="cancelButtonClick()"[disabled]="!this.creatingNew"><mat-icon>cancel</mat-icon>Cancel</button>
+    </mat-card-actions>
+
+
+</mat-card>

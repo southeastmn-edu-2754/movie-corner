@@ -1,0 +1,25 @@
+.full-width {
+    width:100%;
+    }
+    
+    .form-width {
+        min-width: 150px;
+        max-width: 500px;
+        width: 100%
+    }
+
+    .zalz {
+        background-color:  	paleturquoise;
+        }
+
+        
+    .balz {
+        background-color: lightcyan;
+        }
+
+        .talz {
+            background-color: lightcyan;
+            }
+            mat-form-field {
+                margin-right: 12px;
+              }

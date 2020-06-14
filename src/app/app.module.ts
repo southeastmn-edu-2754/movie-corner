@@ -29,6 +29,8 @@ import { MovieService } from './shared/movie.service';
 import { TitleBasicsComponent } from './components/title-basics/title-basics.component';
 import { TitlePrincipalsComponent } from './components/title-principals/title-principals.component';
 import { NameBasicsComponent } from './components/name-basics/name-basics.component';
+import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { NameBasicsComponent } from './components/name-basics/name-basics.compon
     MoviecornerComponent,
     TitleBasicsComponent,
     TitlePrincipalsComponent,
-    NameBasicsComponent
+    NameBasicsComponent,
+    RegistrationFormComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule,
