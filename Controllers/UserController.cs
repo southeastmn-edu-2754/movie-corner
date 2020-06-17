@@ -84,7 +84,7 @@ namespace _2754_movie_corner_2020.Controllers
     {
 
        user.Created = DateTime.Now;
-
+    //    System.Console.WriteLine(user.UserId + " " + user.UserName + " " + user.FullName + " " + user.Created.ToString());
        _context.User.Add(user);
 
        await _context.SaveChangesAsync();
