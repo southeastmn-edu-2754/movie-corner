@@ -42,6 +42,20 @@ namespace _2754_movie_corner_2020.Controllers
             return user;
         }
 
+        // GET: api/User/username/password
+        HttpGet("{username}/{password}")]
+        async Task<IActionResult> Login([FromRoute] string username, string password)
+        {
+            User user = await _context.User
+            Where(u => u.UserName == username && u.Password == password)
+            .SingleOrDefaultAsync();
+            if (user == null)
+            {return false;
+             }
+             return true;
+             }
+
+
         // PUT: api/User/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

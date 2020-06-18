@@ -92,4 +92,10 @@ updateUser(user: User) {
   return this.httpClient.put(this.movieApiUrl + user.userId, jsonUser);
 }
 
+
+login(username: string, password: string) : Observable<boolean> {
+  return this.httpClient.get(this.movieApiUrl + username + "/" + password);
+
+
+}
 }
