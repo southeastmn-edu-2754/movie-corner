@@ -93,7 +93,7 @@ updateUser(user: User) {
 }
 
 
-login(username: string, password: string) : Observable<boolean> {
+login(username: string, password: string) : Observable<Object> {
   return this.httpClient.get(this.movieApiUrl + username + "/" + password);
 
 

@@ -23,3 +23,16 @@
             mat-form-field {
                 margin-right: 12px;
               }
+
+              .btn1 {
+                color : rgb(49, 46, 46);
+                background-color: rgba(79, 190, 223, 0.96);
+                border-radius: 10px 0 0 10px;
+                font-size: 16px;
+              }
+              .btn1:not([disabled]):hover {
+                background-color: rgba(107, 103, 91, 0.96);
+                color: white;
+              }
+
+              

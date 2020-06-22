@@ -43,16 +43,18 @@ namespace _2754_movie_corner_2020.Controllers
         }
 
         // GET: api/User/username/password
-        HttpGet("{username}/{password}")]
-        async Task<IActionResult> Login([FromRoute] string username, string password)
+        [HttpGet("{username}/{password}")]
+        public async Task<Object> Login([FromRoute] string username, string password)
         {
             User user = await _context.User
-            Where(u => u.UserName == username && u.Password == password)
-            .SingleOrDefaultAsync();
+                .Where(u => u.UserName == username && u.Password == password)
+                .SingleOrDefaultAsync();
             if (user == null)
-            {return false;
+            {
+                return new {authenticated = false};
              }
-             return true;
+
+             return new {authenticated = true};
              }
 
 
