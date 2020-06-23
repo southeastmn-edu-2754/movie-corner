@@ -25,7 +25,7 @@ namespace _2754_movie_corner_2020.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NameBasics>>> GetNameBasics()
         {
-            return await _context.NameBasics.ToListAsync();
+            return await _context.NameBasics.Take(10).ToListAsync();
         }
 
         // GET: api/TitlePrincipals/primaryName
@@ -34,12 +34,12 @@ namespace _2754_movie_corner_2020.Controllers
         {
             List<NameBasics> nameBasics = new List<NameBasics>();
             if (String.IsNullOrEmpty(primaryName))
-                nameBasics = await _context.NameBasics.ToListAsync();
+                nameBasics = await _context.NameBasics.Take(10).ToListAsync();
             else
                 nameBasics = await _context.NameBasics
                     .Where(p => p.PrimaryName.Contains(primaryName))
                     .OrderBy(p => p.PrimaryName)
-                    .Take(5)
+                    .Take(20)
                     .ToListAsync();
 
             return Ok(new {nameBasics = nameBasics});

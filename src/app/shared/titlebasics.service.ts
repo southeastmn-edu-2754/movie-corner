@@ -25,7 +25,7 @@ export class titlebasicsService {
           let c = data.titleBasics[i];
           console.log(c);
           this.title_basics.push( new Title_Basics(
-            c["tconst"], 
+            c["tconst"].replace(" ", ""), 
             c["titleType"], 
             c["primaryTitle"], 
             c["originalTitle"], 
@@ -39,27 +39,6 @@ export class titlebasicsService {
       
     }));
   }
-}
-
-//   getTitles(): Observable<Title_Basics[]> {
-//     return this.httpClient.get<Title_Basics[]>('https://localhost:5001/api/titlebasics/')
-//     .pipe(map(data =>{
-//       let title_basics : Title_Basics[] = new Array<Title_Basics>();
-//       let c = data[0];
-//       title_basics.push( new Title_Basics(
-//         c["tconst"], 
-//         c["titleType"], 
-//         c["primaryTitle"], 
-//         c["originalTitle"], 
-//         c["isAudit"],
-//         c["startYear"],
-//         c["endYear"],
-//         c["runtimeMinutes"],
-//         c["genres"]));
-  
-//         return title_basics;
-    
-//   }));
-//   }
   
 // }
+}

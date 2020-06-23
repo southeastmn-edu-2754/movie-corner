@@ -21,29 +21,38 @@ namespace _2754_movie_corner_2020.Controllers
             _context = context;
         }
 
+        // GET: api/TitleBasics/{value}
+        [HttpGet("{value}")]
+        public async Task<IActionResult> GetTitleBasics([FromRoute] string value)
+        {
+            // Returns an array of TitleBasics objects:
+            // 1) If "value" is primary key (tt0000000), search Tconst
+            // 2) Else search primary title
+            List<TitleBasics> titleBasics = new List<TitleBasics>();
+
+            int i = 0;
+            if (value.Length == 9 && value.Substring(0,2) == "tt" && Int32.TryParse(value.Substring(2, 7), out i)) {
+                titleBasics = await _context.TitleBasics
+                    .Where(p => p.Tconst == value)
+                    .ToListAsync();
+            }
+            else 
+            {
+            titleBasics = await _context.TitleBasics
+                .Where(p => p.PrimaryTitle.Contains(value))
+                .OrderBy(p => p.PrimaryTitle)
+                .Take(10)
+                .ToListAsync();
+            }
+
+            return Ok(new { titleBasics = titleBasics });    // wrap array in object to prevent JSON hijacking
+        }
+
         // GET: api/TitleBasics
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TitleBasics>>> GetTitleBasics()
         {
-            return await _context.TitleBasics.ToListAsync();
-        }
-
-        // GET: api/TitleBasics/{primaryTitle}
-        [HttpGet("{primaryTitle}")]
-        public async Task<IActionResult> GetTitleBasics([FromRoute] string primaryTitle)
-        {
-            List<TitleBasics> titleBasics = new List<TitleBasics>();
-
-            if (String.IsNullOrEmpty(primaryTitle))
-                titleBasics = await _context.TitleBasics.ToListAsync();
-            else
-                titleBasics = await _context.TitleBasics
-                   .Where(p => p.PrimaryTitle.Contains(primaryTitle))
-                   .OrderBy(p => p.PrimaryTitle)
-                   .Take(10)
-                   .ToListAsync();
-
-            return Ok(new { titleBasics = titleBasics });    // wrap array in object to prevent JSON hijacking
+            return await _context.TitleBasics.Take(10).ToListAsync();
         }
 
         // // GET: api/TitleBasics/5

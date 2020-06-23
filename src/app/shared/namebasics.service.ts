@@ -9,7 +9,7 @@ interface namebasicsData { nameBasics: any[]; }
 @Injectable({
   providedIn: 'root'
 })
-export class namebasicsService {
+export class NameBasicsService {
 
     public name_basics : Name_Basics[] = new Array <Name_Basics>();
     private nameBasicsApiUrl: string = 'https://localhost:5001/api/namebasics/';

@@ -5,9 +5,9 @@ import { Observable, throwError } from 'rxjs';
 import { Name_Basics } from 'src/app/shared/namebasics.model';
 import { Title_Basics } from 'src/app/shared/title_basics.model';
 import { titlebasicsService } from 'src/app/shared/titlebasics.service';
-import { namebasicsService } from 'src/app/shared/namebasics.service';
-import { Title_Principals } from 'src/app/shared/title_principals.model';
-import { title_principalsService } from 'src/app/shared/title_principals.service';
+import { NameBasicsService } from 'src/app/shared/namebasics.service';
+import { Title_Principal } from 'src/app/shared/title_principal.model';
+import { Title_PrincipalsService } from 'src/app/shared/title_principals.service';
 import { startWith, distinctUntilChanged, debounceTime, switchMap, catchError} from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -30,10 +30,10 @@ export class NameBasicsComponent implements OnInit {
 
   public selectedName: Name_Basics = new Name_Basics("","",0,0,"","");
   public filteredName: Observable<Name_Basics[]> = null;
-  public titleprincipals: Title_Principals[] = new Array<Title_Principals>();
+  public titleprincipals: Title_Principal[] = new Array<Title_Principal>();
 
-  constructor(private namebasicsService: namebasicsService, 
-    private titleprincipalsService: title_principalsService,
+  constructor(private namebasicsService: NameBasicsService, 
+    private titleprincipalsService: Title_PrincipalsService,
     private titlebasicsService: titlebasicsService) { }
 
   ngOnInit(){
